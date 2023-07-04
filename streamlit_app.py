@@ -90,3 +90,41 @@ def load_data(filename):
 df_cities = load_data('data/cities_geocoded.csv')
 df_vehicles = load_data('data/electric_vehicles.json')
 
+city_coordinates = df_cities['geoloc']
+
+city_choices = list(df_cities["city_state"])
+city_choices.insert(0, "Select a City")
+vehicle_choices = list(zip(df_vehicles['make'], df_vehicles['model']))
+
+with st.sidebar.form(key="my_form"):
+    selectbox_city = st.selectbox("Choose a City", city_choices)
+    selectbox_vehicle = st.selectbox("Choose a Vehicle", vehicle_choices)
+    numberinput_threshold = st.number_input(
+        """Select Miles Estimated to Drive Annually""",
+        value=12000,
+        min_value=1000,
+        max_value=50000,
+        step=100,
+        format="%i",
+    )
+
+    st.markdown(
+        '<p class="small-font">Results Limited to top 5 per State in overall US</p>',
+        unsafe_allow_html=True,
+    )
+    pressed = st.form_submit_button("Estimate Vehicle Costs")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
