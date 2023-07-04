@@ -56,6 +56,7 @@ Quick Info:
 )
 
 @st.cache_data(persist=True)
+# filename includes the prefix on the S3 bucket
 def load_data(filename):
     session = boto3.session.Session( 
     aws_access_key_id= aws_access_key_id, 
@@ -73,3 +74,9 @@ def load_data(filename):
         data = json.loads(json_data)
         
     return data
+
+
+# read the data
+df_cities = load_data('data/cities_geocoded.csv')
+df_vehicles = load_data('data/electric_vehicles.json')
+
