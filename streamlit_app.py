@@ -65,7 +65,26 @@ Quick Info:
 )
 
 @st.cache_data(persist=True)
+# filename includes the prefix on the S3 bucket
+def load_data(filename):
+    session = boto3.session.Session( 
+    aws_access_key_id= aws_access_key_id, 
+    aws_secret_access_key= aws_secret_access_key,  
+    region_name='us-east-1'
+    )
+
+    s3_client = session.client('s3')
+    bucket_name = 'tdi-capstone-lb'
+    response = s3_client.get_object(Bucket=bucket_name, Key=filename)
+    if filename[-4:] == '.csv':
+        data = pd.read_csv(response['Body'])
+    elif filename[-4:] == 'json':
+        json_data = response['Body'].read().decode('utf-8')
+        data = json.loads(json_data)
+        
+    return data
+
 # read the data
-df_cities = utility_functions.load_data('data/cities_geocoded.csv')
-df_vehicles = utility_functions.load_data('data/electric_vehicles.json')
+df_cities = load_data('data/cities_geocoded.csv')
+df_vehicles = load_data('data/electric_vehicles.json')
 
