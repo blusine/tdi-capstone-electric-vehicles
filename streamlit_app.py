@@ -1,14 +1,13 @@
 import pandas as pd
 #pd.options.display.float_format = '{:.2f}'.format
 import numpy as np
-import pandas as pd
 from streamlit_folium import st_folium
 import altair as alt
 import folium
 import branca
 from geopy.geocoders import Nominatim
 
-import config
+#import config
 import streamlit as st
 
 from PIL import Image
