@@ -31,19 +31,21 @@ import utility_functions
 aws_access_key_id = st.secrets["AWS_ACCESS_KEY_ID"]
 aws_secret_access_key = st.secrets["AWS_SECRET_ACCESS_KEY"]
 
+
 def remote_css(url):
     st.markdown(f'<link href="{url}" rel="stylesheet">', unsafe_allow_html=True)    
 
 def icon(icon_name):
     st.markdown(f'<i class="material-icons">{icon_name}</i>', unsafe_allow_html=True)
 
-local_css("style.css")
+#local_css("style.css")
 remote_css('https://fonts.googleapis.com/icon?family=Material+Icons')
 
-icon("search")
+#icon("search")
 
 padding = 5
-st.set_page_config(page_title="Electric Vehicles", layout="wide", page_icon="📍")
+#st.set_page_config(page_title="Electric Vehicles", layout="wide", page_icon="📍icon("search")")
+st.set_page_config(page_title="Electric Vehicles", layout="wide", page_icon="icon("electric_car")")
 #title
 st.title(":blue[  Estimation of Charging Costs of Electric Vehicles]")
 
@@ -65,6 +67,7 @@ Quick Info:
 )
 
 @st.cache_data(persist=True)
+
 # filename includes the prefix on the S3 bucket
 def load_data(filename):
     session = boto3.session.Session( 
