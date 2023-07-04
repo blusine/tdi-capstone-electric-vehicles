@@ -88,14 +88,14 @@ def load_data(filename):
 
 # read the data
 df_cities = load_data('data/cities_geocoded.csv')
-df_vehicles = load_data('data/electric_vehicles.json')
+df_vehicles = load_data('data/electric_vehicles.csv')
 
 city_coordinates = df_cities['geoloc']
 
 city_choices = list(df_cities["city_state"])
 city_choices.insert(0, "Select a City")
-#vehicle_choices = list(zip(df_vehicles['make'], df_vehicles['model']))
-vehicle_choices = list(f"{df_vehicle['make']} , {df_vehicle['model']}" for df_vehicle in df_vehicles)
+vehicle_choices = list(zip(df_vehicles['make'], df_vehicles['model']))
+#vehicle_choices = list(f"{df_vehicle['make']} , {df_vehicle['model']}" for df_vehicle in df_vehicles)
 
 with st.sidebar.form(key="my_form"):
     selectbox_city = st.selectbox("Choose a City", city_choices)
