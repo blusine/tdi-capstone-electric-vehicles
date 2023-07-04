@@ -5,11 +5,10 @@ altair
 folium
 branca
 geopy
-config
-import config
-streamlit
+#config
 PIL
 requests
 boto3
 json
 datetime
+streamlit
