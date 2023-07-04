@@ -45,7 +45,7 @@ remote_css('https://fonts.googleapis.com/icon?family=Material+Icons')
 
 padding = 5
 #st.set_page_config(page_title="Electric Vehicles", layout="wide", page_icon="📍icon("search")")
-st.set_page_config(page_title="Electric Vehicles", layout="wide", page_icon="icon("electric_car")")
+st.set_page_config(page_title="Electric Vehicles", layout="wide", page_icon=icon("electric_car"))
 #title
 st.title(":blue[  Estimation of Charging Costs of Electric Vehicles]")
 
