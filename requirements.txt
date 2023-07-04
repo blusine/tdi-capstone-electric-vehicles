@@ -9,6 +9,6 @@ geopy
 #PIL
 requests
 boto3
-json
+#json
 datetime
 streamlit
