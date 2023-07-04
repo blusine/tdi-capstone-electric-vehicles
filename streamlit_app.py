@@ -44,11 +44,11 @@ remote_css('https://fonts.googleapis.com/icon?family=Material+Icons')
 #icon("search")
 
 padding = 5
-#st.set_page_config(page_title="Electric Vehicles", layout="wide", page_icon="📍icon("search")")
-st.set_page_config(page_title="Electric Vehicles", layout="wide", page_icon=icon("electric_car"))
+st.set_page_config(page_title="Electric Vehicles", layout="wide", page_icon="📍icon("search")")
+
 #title
 st.title(":blue[  Estimation of Charging Costs of Electric Vehicles]")
-
+icon("electric_car"
 #markdown
 st.markdown("""
     Electric vehicles have gained a lot of popularity in recent years due to their eco-friendliness, low emissions, and reduced reliance on fossil fuels. However, one of the most important factors that determine the feasibility and affordability of electric vehicles is their energy costs. This project predicts energy costs of electric vehicles using factors such as vehicle make/model, its battery capacities, travel distances and local electricity prices.
