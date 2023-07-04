@@ -33,7 +33,8 @@ import json
 aws_access_key_id = st.secrets["AWS_ACCESS_KEY_ID"]
 aws_secret_access_key = st.secrets["AWS_SECRET_ACCESS_KEY"]
 
-
+padding = 10
+st.set_page_config(page_title="Electric Vehicles", layout="wide", page_icon="📍")
 #title
 st.title(":blue[  Estimation of Charging Costs of Electric Vehicles]")
 
