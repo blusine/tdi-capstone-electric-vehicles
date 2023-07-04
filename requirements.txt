@@ -6,7 +6,7 @@ folium
 branca
 geopy
 #config
-PIL
+#PIL
 requests
 boto3
 json
