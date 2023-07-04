@@ -10,10 +10,10 @@ from geopy.geocoders import Nominatim
 #import config
 import streamlit as st
 
-from PIL import Image
+#from PIL import Image
 # from streamlit_extras.add_vertical_space import add_vertical_space
-from st_aggrid import AgGrid, GridOptionsBuilder
-from st_aggrid.shared import GridUpdateMode
+#from st_aggrid import AgGrid, GridOptionsBuilder
+#from st_aggrid.shared import GridUpdateMode
 from datetime import datetime
 
 
@@ -22,8 +22,8 @@ import boto3
 import json
 
 # Load API keys from JSON file
-with open('config.json') as file:
-    config = json.load(file)
+#with open('config.json') as file:
+#    config = json.load(file)
 
 # Access the API keys
 #aws_access_key_id = config['aws_access_key_id']
