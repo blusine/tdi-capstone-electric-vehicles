@@ -66,7 +66,7 @@ def load_data(filename):
 
     s3_client = session.client('s3')
     bucket_name = 'tdi-capstone-lb'
-    response = s3_client.get_object(Bucket=bucket_name, Key=file_name)
+    response = s3_client.get_object(Bucket=bucket_name, Key=filename)
     if filename[-4:] == '.csv':
         df = pd.read_csv(response['Body'])
     elif filename[-4:] == 'json':
