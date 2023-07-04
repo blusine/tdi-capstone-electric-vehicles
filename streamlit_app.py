@@ -31,7 +31,6 @@ import utility_functions
 aws_access_key_id = st.secrets["AWS_ACCESS_KEY_ID"]
 aws_secret_access_key = st.secrets["AWS_SECRET_ACCESS_KEY"]
 
-
 def remote_css(url):
     st.markdown(f'<link href="{url}" rel="stylesheet">', unsafe_allow_html=True)    
 
@@ -40,8 +39,6 @@ def icon(icon_name):
 
 #local_css("style.css")
 remote_css('https://fonts.googleapis.com/icon?family=Material+Icons')
-
-#icon("search")
 
 padding = 5
 st.set_page_config(page_title="Electric Vehicles", layout="wide", page_icon="📍")
