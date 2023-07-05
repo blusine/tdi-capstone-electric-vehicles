@@ -269,6 +269,7 @@ location = np.mean(lats), np.mean(longs)
 map = folium.Map(location, zoom_start=15)
 
 for city in city_data:
+    st.write(f"{city}")
     html = fancy_html(city['city_state'], city['cost'])
     iframe = branca.element.IFrame(html=html,width=300,height=280)
     popup = folium.Popup(iframe,parse_html=True)
