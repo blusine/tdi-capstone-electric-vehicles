@@ -92,9 +92,9 @@ def load_data(filename):
     return data
 
 # read the data somehow the json data did not get parsed correctly, so I reading csv and converting to json again
-city_data = load_data('data/cities_geocoded.csv')
-city_data = city_data.apply(lambda x: json.dumps(x.to_dict(), ensure_ascii=False), axis=1)
-city_data = city_data.to_list()
+city_data1 = load_data('data/cities_geocoded.csv')
+city_data1 = city_data1.apply(lambda x: json.dumps(x.to_dict(), ensure_ascii=False), axis=1)
+city_data1 = city_data1.to_list()
 
 vehicle_data = load_data('data/electric_vehicles.csv')
 vehicle_data = vehicle_data.apply(lambda x: json.dumps(x.to_dict(), ensure_ascii=False), axis=1)
@@ -102,10 +102,12 @@ vehicle_data = vehicle_data.to_list()
 
 #Initialize data
 #city_coordinates = list(city['geoloc'] for city in city_data)
-for city in city_data:
+city_data = []
+for city in city_data1:
     city = json.loads(city)
     city["cost"] = " "
-
+    city_data.append(city)
+    
 #city_costs = [{ciy: " "} for city in city_data['city']]
                      
 #st.write(
