@@ -190,7 +190,7 @@ def predict_KWH(city, n_periods):
     return forecasts
 
 if selected_city:
-    forecasts = predict_KWH(selected_city['city'], selected_years*12)
+    forecasts = predict_KWH(selected_city[0]['city'], selected_years*12)
     st.write(
     f"{forecasts}"
     )
