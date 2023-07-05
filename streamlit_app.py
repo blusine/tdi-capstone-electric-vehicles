@@ -61,7 +61,6 @@ with col2:
      
 st.markdown(
 """
-Directions:
 - Select the closest city where you intend to drive the vehicle
 - Select the vehicle you are interested in from the drop down list
 - Select the expected annual miles you intend to drive
