@@ -97,13 +97,14 @@ vehicle_data = load_data('data/electric_vehicles.json')
 
 #Initialize data
 #city_coordinates = list(city['geoloc'] for city in city_data)
-city["cost"] = " " for city in city_data
+for city in city_data:
+    city["cost"] = " " 
 
 #city_costs = [{ciy: " "} for city in city_data['city']]
                      
-st.write(
-    f"{city_costs}"
-)
+#st.write(
+#    f"{city_costs}"
+#)
 
 #dict_vehicles = df_vehicles.set_index(['make'])['model'].to_dict()
 
