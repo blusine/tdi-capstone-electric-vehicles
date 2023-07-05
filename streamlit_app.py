@@ -89,8 +89,8 @@ def load_data(filename):
 # read the data
 df_cities = load_data('data/cities_geocoded.csv')
 df_vehicles = load_data('data/electric_vehicles.csv')
-
 city_coordinates = df_cities['geoloc']
+dict_vehicles = df_vehicles.set_index(['make'])['model'].to_dict()
 
 city_choices = list(df_cities["city_state"])
 city_choices.insert(0, "Select a City")
@@ -109,7 +109,7 @@ with st.sidebar.form(key="my_form"):
     if selectbox_vehicle == 'Select a Make':
         selectbox_model = st.selectbox("Choose a Vehicle Model", "Select a Make First")
     else:        
-        current_models = list(df_vehicles[df_vehicles['make'] == selectbox_vehicle]['model'].unique())
+        current_models = dict_vehicles[selectbox_vehicle]
         selectbox_model = st.selectbox("Choose a Vehicle Model", current_models)
     
     numberinput_threshold = st.number_input(
