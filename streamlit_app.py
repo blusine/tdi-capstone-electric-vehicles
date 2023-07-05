@@ -280,7 +280,7 @@ def draw_map(city_data, color, m=None):
 if selected_city:
     location = [selected_city[0]['Latitude'], selected_city[0]['Longitude']]
     map = folium.Map(location, zoom_start=14)
-    draw_map(selected_city, 'red', map)
+    draw_map(selected_city[0], 'red', map)
     st_data = st_folium(map, width=725)
 
 
