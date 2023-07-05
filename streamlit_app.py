@@ -18,7 +18,6 @@ import boto3
 import json
 import jinja2
 import pmdarima
-import locale
 
 import utility_functions
 
@@ -286,7 +285,7 @@ map_obj = folium.Map(location=location, zoom_start=12)
     
 for city in city_data:
     #st.write(f"{city}")
-    currency = locale.currency(city['cost'], grouping=True)
+    currency = "${:,.2f}".format(city['cost'])
     html = fancy_html(city['city_state'], currency)
     iframe = branca.element.IFrame(html=html,width=300,height=280)
     popup = folium.Popup(iframe,parse_html=True)
