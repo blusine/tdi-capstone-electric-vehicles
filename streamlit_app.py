@@ -91,7 +91,7 @@ def load_data(filename):
     elif filename[-4:] == '.pkl':
         import pickle
         pkl_data = response['Body'].read()
-        data = pickle.loads(pkl_data)      
+        data = pickle.load(pkl_data)      
     return data
 
 # read the data somehow the json data did not get parsed correctly, so I reading csv and converting to json again
@@ -185,6 +185,9 @@ def predict_KWH(city, n_periods):
     y_m = str(current_year) + "_" +  current_month
     filepath = "models/"
     pkl_filename = filepath + 'pmdarima_model_' + city + y_m + '.pkl'
+    
+    st.write(f"{pkl_filename}")
+    
     pkl_model = load_data(pkl_filename)
     forecasts = pkl_model.predict(n_periods=n_periods)
     
