@@ -46,7 +46,19 @@ def icon(icon_name):
 #local_css("style.css")
 remote_css('https://fonts.googleapis.com/icon?family=Material+Icons')
 
-icon("electric_car")
+# Create two columns using beta_columns
+col1, col2 = st.beta_columns(2)
+
+# Add content to the first column
+with col1:
+    #st.header('Column 1')
+    #st.write('Content for column 1')
+    icon("electric_car")
+# Add content to the second column
+with col2:
+    #st.header('Column 2')
+    st.write('Directions')
+    
 
 #markdown
 #st.markdown("""
@@ -121,7 +133,7 @@ with st.sidebar.form(key="my_form"):
     #"""
     
     numberinput_miles = st.number_input(
-        """Select Miles Estimated to Drive Annually""",
+        """Select Miles You Estimate to Drive Annually""",
         value=12000,
         min_value=1000,
         max_value=50000,
@@ -129,7 +141,7 @@ with st.sidebar.form(key="my_form"):
         format="%i",
     )
     
-    numberslider_years = st.slider('📝 Input the number of years you intend to use the vehicle:', 1 , 25) 
+    numberslider_years = st.slider('📝 Input Number of Years You Intend to Use the Vehicle:', 1 , 25) 
 
     pressed = st.form_submit_button("Estimate Vehicle Costs")
 
