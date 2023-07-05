@@ -179,9 +179,6 @@ st.write(
 f"{selected_miles, selected_years}"
 )
 
-#def get_forecast_filename(city):
-    
-    
 def predict_KWH(city, n_periods):
     
     current_year = datetime.now().year
@@ -189,13 +186,25 @@ def predict_KWH(city, n_periods):
     y_m = str(current_year) + "_" +  current_month
     filepath = "models/"
     pkl_filename = filepath + 'pmdarima_model_' + city + y_m + '.pkl'
-    
     st.write(f"{pkl_filename}")
     pkl_model = load_data(pkl_filename)
-    
     forecasts = pkl_model.predict(n_periods=n_periods)
-    
     return forecasts
+
+def calculate_KWH_costs(forecasts, battery, driving_range, selected_miles):
+    # Step 1: convert driving range to miles, driving range is how many miles the vehicle is expected to drive per battery charge
+    driving_range = driving_range/1.6
+    # Step 2: calculate expected average miles per month to be driven
+    selected_miles = selected_miles / 12
+    # Step 3: calculate # of monthly charges
+    monthly_charges = selected_miles / driving_range
+    # Step 4: consider charging efficiency: more energy is used to charge the battery
+    battery = battery * 1.15
+    # Step 5: monthly KWH to keep the car running
+    monthly_KWH = monthly_charges * battery
+    # Step 6: monthy costs
+    monthly_dollars = monthly_KWH * forecasts
+    return monthly_dollars
 
 if selected_city:
     forecasts = predict_KWH(selected_city[0]['city'], selected_years*12)
@@ -203,6 +212,15 @@ if selected_city:
     f"{forecasts}"
     )
     
+if selected_vehicle:
+    battery = selected_vehicle[0]['battery']
+    #strip the 'km' from vehicle driving range to keep the number only
+    driving_range = selected_vehicle[0]['erange_real'][:-3].astype(float)
+    monthly_dollars = calculate_KWH_costs(forecasts, battery, driving_range, selected_miles)
+    st.write(
+    f"{monthly_dollars}"
+    )
+        
 #print(forecasts)
 #if (selected_city != "Choose a City") and ( selected_vehicle != "Choose a Vehicle"):
     
