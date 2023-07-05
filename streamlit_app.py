@@ -95,26 +95,22 @@ def load_data(filename):
 city_data1 = load_data('data/cities_geocoded.csv')
 city_data1 = city_data1.apply(lambda x: json.dumps(x.to_dict(), ensure_ascii=False), axis=1)
 city_data1 = city_data1.to_list()
-
-vehicle_data = load_data('data/electric_vehicles.csv')
-vehicle_data = vehicle_data.apply(lambda x: json.dumps(x.to_dict(), ensure_ascii=False), axis=1)
-vehicle_data = vehicle_data.to_list()
+vehicle_data1 = load_data('data/electric_vehicles.csv')
+vehicle_data1 = vehicle_data1.apply(lambda x: json.dumps(x.to_dict(), ensure_ascii=False), axis=1)
+vehicle_data1 = vehicle_data1.to_list()
 
 #Initialize data
-#city_coordinates = list(city['geoloc'] for city in city_data)
 city_data = []
 for city in city_data1:
     city = json.loads(city)
     city["cost"] = " "
     city_data.append(city)
-    
-#city_costs = [{ciy: " "} for city in city_data['city']]
-                     
-#st.write(
-#    f"{city_costs}"
-#)
+vehicle_data = []
+for vehicle in vehicle_data1:
+    vehicle = json.loads(vehicle)
+    vehicle_data.append(vehicle)
 
-#dict_vehicles = df_vehicles.set_index(['make'])['model'].to_dict()
+#city_coordinates = list(city['geoloc'] for city in city_data)
 
 city_choices = list(city["city_state"] for city in city_data)
 city_choices.insert(0, "Select a City")
