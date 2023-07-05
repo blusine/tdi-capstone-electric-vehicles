@@ -263,15 +263,16 @@ def fancy_html(city_state, total_dollars):
 
 # Render a map
 
-lats = [city['Latitude'] for city in city_data]
-longs = [city['Longitude'] for city in city_data]
-location = np.mean(lats), np.mean(longs)
+#lats = [city['Latitude'] for city in city_data]
+#longs = [city['Longitude'] for city in city_data]
+#location = np.mean(lats), np.mean(longs)
+location = 39.100105, -94.578142
 map = folium.Map(location, zoom_start=15)
 
-st.write(f"{city_data}")
+#st.write(f"{city_data}")
 
 for city in city_data:
-    st.write(f"{city}")
+    #st.write(f"{city}")
     html = fancy_html(city['city_state'], city['cost'])
     iframe = branca.element.IFrame(html=html,width=300,height=280)
     popup = folium.Popup(iframe,parse_html=True)
