@@ -266,6 +266,9 @@ def fancy_html(city_state, total_dollars):
 #lats = [city['Latitude'] for city in city_data]
 #longs = [city['Longitude'] for city in city_data]
 #location = np.mean(lats), np.mean(longs)
+if not selected_city:
+    color = 'blue'
+        
 @st.cache(allow_output_mutation=True)
 def create_map():
     # Create the initial map object
@@ -277,29 +280,26 @@ map_obj = create_map()
 
 #st.write(f"{city_data}")
 
+marker_group = folium.FeatureGroup(name="Markers")
+
 for city in city_data:
     #st.write(f"{city}")
     html = fancy_html(city['city_state'], city['cost'])
     iframe = branca.element.IFrame(html=html,width=300,height=280)
     popup = folium.Popup(iframe,parse_html=True)
     
-    if selected_city:
-        # add markers
-        if city['city_state'] == selected_city[0]['city_state']:
-            color = 'red'
-        else:
-            color = 'blue'
-    else:
-        color = 'blue'
+    if city['city_state'] == selected_city[0]['city_state']:
+        color = 'red'
         
     folium.Marker(
         [city['Latitude'], city['Longitude']],
           popup=popup,
           icon=folium.Icon(color=color, icon='car'),
-          tooltip=city['city_state']).add_to(map_obj)
+          tooltip=city['city_state']).add_to(marker_group)
         
 #draw_map(city_data, 'red', map)
-#st_data = st_folium(map, width=725)
+marker_group.add_to(map_obj)
+st_data = st_folium(map_obj, width=725)
 #st.markdown(map_obj._repr_html_(), unsafe_allow_html=True)
 
 
