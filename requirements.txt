@@ -14,3 +14,4 @@ datetime
 streamlit
 pmdarima
 plost
+matplotlib
