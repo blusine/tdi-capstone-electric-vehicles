@@ -285,19 +285,21 @@ map_obj = folium.Map(location=location, zoom_start=12)
     
 for city in city_data:
     #st.write(f"{city}")
-    currency = "${:,.2f}".format(city['cost'])
+    if selected_city:
+        if city['city_state'] == selected_city[0]['city_state']:
+            currency = "${:,.2f}".format(city['cost'])
+            color = 'red'        
+    else:
+        currency = city['cost']
+        color = 'blue'
+    
     html = fancy_html(city['city_state'], currency)
     iframe = branca.element.IFrame(html=html,width=300,height=280)
     popup = folium.Popup(iframe,parse_html=True)
     
-    if not selected_city:
-        color = 'blue'
-    else:
-        if city['city_state'] == selected_city[0]['city_state']:
-            color = 'red'
-    
     folium.Marker(
-        [city['Latitude'], city['Longitude']],
+        #[city['Latitude'], city['Longitude']]
+        location,
           popup=popup,
           icon=folium.Icon(color=color, icon='car'),
           tooltip=city['city_state']).add_to(map_obj)
