@@ -13,3 +13,4 @@ boto3
 datetime
 streamlit
 pmdarima
+locale
