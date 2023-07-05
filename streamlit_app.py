@@ -67,8 +67,8 @@ st.markdown(
 - Select the vehicle you are interested in from the drop down list
 - Select the expected annual miles you intend to drive
 - Select the number of years you intend to use the vehicle
-- Color of icon: green: super rating > 5, orange: greater than 3 and less than 5, red: less than 3
-- Click on the icon will pop up a display table with more info regarding the restaurant
+- Color of icon: red: for the selected city, blue: for the non-selected city
+- Click on the icon will pop up a display with the total cost for that city
 """
 )
 
@@ -266,18 +266,6 @@ def fancy_html(city_state, total_dollars):
     </html>
     """
     return html
-#lats = [city['Latitude'] for city in city_data]
-#longs = [city['Longitude'] for city in city_data]
-#location = np.mean(lats), np.mean(longs)
-        
-
-#st.write(f"{city_data}")
-
-        
-#draw_map(city_data, 'red', map)
-#st_data = st_folium(map_obj, width=725, feature_group_to_add=fg)
-#st.markdown(map_obj._repr_html_(), unsafe_allow_html=True)
-
 
 #st.write(f"{city_data}")
 if not selected_city:
@@ -285,12 +273,10 @@ if not selected_city:
     currency = ' '
     color = 'blue'
 else:
-    location=[selected_city[0]['Latitude'], selected_city[0]['Longitude']]
-    
+    location=[selected_city[0]['Latitude'], selected_city[0]['Longitude']]   
 map_obj = folium.Map(location=location, zoom_start=5)
     
 for city in city_data:
-    #st.write(f"{city}")
     if selected_city:
         if city['city_state'] == selected_city[0]['city_state']:
             if selected_vehicle:
@@ -312,11 +298,13 @@ for city in city_data:
           icon=folium.Icon(color=color, icon='info-sign'),
           tooltip=city['city_state']).add_to(map_obj)
     
-    
-    #st_folium(map_obj, width=725)
+#st_folium(map_obj, width=725) #too interactive for this application
 folium_static(map_obj)
 
-
-
-
-
+# Draw a chart with monthly estimated costs
+column_names = ['Period', 'Estimated Cost']
+df = pd.DataFrame(forecasts)
+df.reset_index(level=0, inplace=True).rename(columns = {column[0]: 'Period', column[1]: 'Estimated Cost'}, inplace = True)
+st.write(
+f"{df}"
+)
