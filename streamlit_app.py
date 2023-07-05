@@ -284,16 +284,17 @@ for city in city_data:
         if city['city_state'] == selected_city[0]['city_state']:
             color = 'red'
     
-    fg.add_child(
     folium.Marker(
         [city['Latitude'], city['Longitude']],
           popup=popup,
           icon=folium.Icon(color=color, icon='car'),
-          tooltip=city['city_state']))
+          tooltip=city['city_state']).add_to(map_obj)
         
 #draw_map(city_data, 'red', map)
-st_data = st_folium(map_obj, width=725, feature_group_to_add=fg)
+#st_data = st_folium(map_obj, width=725, feature_group_to_add=fg)
 #st.markdown(map_obj._repr_html_(), unsafe_allow_html=True)
+
+map_obj
 
 
 
