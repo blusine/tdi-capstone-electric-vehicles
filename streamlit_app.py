@@ -88,7 +88,9 @@ def load_data(filename):
     elif filename[-4:] == 'json':
         json_data = response['Body'].read().decode('utf-8')
         data = json.loads(json_data)
-        
+    elif filename[-4:] == '.pkl':
+        with open(filename, 'rb') as pkl:
+            data = pickle.load(pkl)        
     return data
 
 # read the data somehow the json data did not get parsed correctly, so I reading csv and converting to json again
@@ -152,30 +154,47 @@ with st.sidebar.form(key="my_form"):
 
     pressed = st.form_submit_button("Estimate Vehicle Costs")
 
-expander = st.sidebar.expander("What is this?")
+expander = st.sidebar.expander("What is the project about?")
 expander.write(
     """
 Electric vehicles have gained a lot of popularity in recent years due to their eco-friendliness, low emissions, and reduced reliance on fossil fuels. However, one of the most important factors that determine the feasibility and affordability of electric vehicles is their energy costs. This app estimates energy costs of electric vehicles using factors such as **vehicle make/model, battery capacities, travel distances and local electricity prices.**
 """
 )
 selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_vehicle[0]) and (vehicle["model"] == selected_vehicle[1])]
-#selected_vehicle = target_vehicle
-st.write(
-f"{selected_vehicle[0]} "
-)
+If selected_vehicle:
+    st.write(
+    f"{selected_vehicle[0]} "
+    )
 
-target_city = [city for city in city_data if city["city_state"] == selected_city]
-selected_city = target_city
-st.write(
-f"{selected_city[0]}"
-)
-
+selected_city = [city for city in city_data if city["city_state"] == selected_city]
+If selected_city:
+    st.write(
+    f"{selected_city[0]}"
+    )
 
 st.write(
 f"{selected_miles, selected_years}"
 )
 
-#def
+def predict_KWH(city, n_periods):
+    
+    current_year = datetime.now().year
+    current_month = datetime.now().strftime('%m')
+    y_m = str(current_year) + "_" +  current_month
+    filepath = "models/"
+    pkl_filename = filepath + 'pmdarima_model_' + city + y_m + '.pkl'
+    pkl_model = load_data(pkl_filename)
+    forecasts = pkl_model.predict(n_periods=n_periods)
+    
+    return forecasts
+
+If selected_city:
+    forecasts = predict_KHW(selected_city['city'], selected_years*12)
+    st.write(
+    f"{forecasts}"
+    )
+    
+#print(forecasts)
 #if (selected_city != "Choose a City") and ( selected_vehicle != "Choose a Vehicle"):
     
 
