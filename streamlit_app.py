@@ -107,7 +107,7 @@ with st.sidebar.form(key="my_form"):
     selectbox_vehicle = st.selectbox("Choose a Vehicle Make", vehicle_choices)
     
     if selectbox_vehicle == 'Select a Make':
-        selectbox_model = st.selectbox("Choose a Vehicle Model", "Select a Make First")
+        #selectbox_model = st.selectbox("Choose a Vehicle Model", "Select a Make First")
     else:        
         current_models = dict_vehicles[selectbox_vehicle]
         selectbox_model = st.selectbox("Choose a Vehicle Model", current_models)
