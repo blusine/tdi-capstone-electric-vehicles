@@ -180,7 +180,9 @@ f"{selected_miles, selected_years}"
 )
 
 def predict_KWH(city, n_periods):
-    
+    """ this function predicts $ prices for a consumer per KWH of electricity purchased in a given city
+        models for each city have been trained using pmdarima backage in pythin. The trained models were saved on an s3 bucket.
+    """
     current_year = datetime.now().year
     current_month = datetime.now().strftime('%m')
     y_m = str(current_year) + "_" +  current_month
@@ -192,6 +194,7 @@ def predict_KWH(city, n_periods):
     return forecasts
 
 def calculate_KWH_costs(forecasts, battery, driving_range, selected_miles):
+    """ this function calculates electricity consumption costs for the vehicle, city, number of time periods and expected miles"""
     # Step 1: convert driving range to miles, driving range is how many miles the vehicle is expected to drive per battery charge
     driving_range = driving_range/1.6
     # Step 2: calculate expected average miles per month to be driven
@@ -218,7 +221,7 @@ if selected_vehicle:
     # strip the 'km' from vehicle driving range to keep the number only
     driving_range = float(selected_vehicle[0]['erange_real'][:-3])
     monthly_dollars = calculate_KWH_costs(forecasts, battery, driving_range, selected_miles)
-    total_dollars = sum(monthly_dollars)
+    city_data['cost'] = sum(monthly_dollars)
     
     st.write(
     f"{monthly_dollars}"
@@ -228,14 +231,57 @@ if selected_vehicle:
     f"{total_dollars}"
     )
 
-# Render a map
-
+# credit to https://www.kaggle.com/code/dabaker/fancy-folium
+def fancy_html(city_state, total_dollars):
+    """ fancy_html draws a popup with city name and total cost, used for the map"""
+    Name = city_state
+    Total_Cost = total_dollars
+                                            
+    left_col_colour = "#2A799C"
+    right_col_colour = "#C5DCE7"
     
+    html = """<!DOCTYPE html>
+    <html>
 
+    <head>
+     <h4 style="margin-bottom:0"; width="300px">{}</h4>""".format(Name) + """
+    </head>
+    
+     <table style="height: 126px; width: 300px;">
+      <tbody>
+    
+        <tr>
+        <td style="background-color: """+ left_col_colour +""";"><span style="color: #ffffff;">Total_Cost</span></td>
+        <td style="width: 200px;background-color: """+ right_col_colour +""";">{}</td>""".format(Total_Cost) + """
+        </tr>
 
+      </tbody>
+     </table>
+    </html>
+    """
+    return html
 
+# Render a map    
+def draw_map(city_data, color, m=None):
+   
+    html = fancy_html(city_data['city_state'], city_data['cost'])
+    
+    iframe = branca.element.IFrame(html=html,width=300,height=280)
+    popup = folium.Popup(iframe,parse_html=True)
+    # center on icon, add marker
+    folium.Marker(
+        [city_data['Latitude'], city_data['Longitude']],
+          popup=popup,
+          icon=folium.Icon(color=color, icon='car'),
+          tooltip=city_data['city_state']).add_to(m)
 
+    return None
 
+if selected_city:
+    location = [selected_city['Latitude'], selected_city['Longitude']]
+    map = folium.Map(location, zoom_start=14)
+    draw_map(selected_city, 'red', map)
+    st_data = st_folium(map, width=725)
 
 
 
