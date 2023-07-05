@@ -261,30 +261,31 @@ def fancy_html(city_state, total_dollars):
     """
     return html
 
-# Render a map    
-def draw_map(city_data, color, m=None):
-    for city in city_data:
-        html = fancy_html(city['city_state'], city['cost'])
-        iframe = branca.element.IFrame(html=html,width=300,height=280)
-        popup = folium.Popup(iframe,parse_html=True)
+# Render a map
+
+lats = [city['Latitude'] for city in city_data]
+longs = [city['Longitude'] for city in city_data]
+location = lats.mean(), longs.mean()
+map = folium.Map(location, zoom_start=15)
+
+for city in city_data:
+    html = fancy_html(city['city_state'], city['cost'])
+    iframe = branca.element.IFrame(html=html,width=300,height=280)
+    popup = folium.Popup(iframe,parse_html=True)
     
         # add markers
-        if city['city_state'] == selected_city[0]['city_state']:
-            color = 'blue'
-        else:
-            color = 'red'
+    if city['city_state'] == selected_city[0]['city_state']:
+        color = 'red'
+    else:
+        color = 'blue'
         
-        folium.Marker(
-            [city['Latitude'], city['Longitude']],
-              popup=popup,
-              icon=folium.Icon(color=color, icon='car'),
-              tooltip=city['city_state']).add_to(m)
-
-    return None
-
-location = [selected_city[0]['Latitude'], selected_city[0]['Longitude']]
-map = folium.Map(location, zoom_start=15)
-draw_map(city_data, 'red', map)
+    folium.Marker(
+        [city['Latitude'], city['Longitude']],
+          popup=popup,
+          icon=folium.Icon(color=color, icon='car'),
+          tooltip=city['city_state']).add_to(m)
+        
+#draw_map(city_data, 'red', map)
 st_data = st_folium(map, width=725)
 
 
