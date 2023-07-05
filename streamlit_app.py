@@ -267,7 +267,7 @@ def fancy_html(city_state, total_dollars):
 #longs = [city['Longitude'] for city in city_data]
 #location = np.mean(lats), np.mean(longs)
 @st.cache(allow_output_mutation=True)
-location = 39.100105, -94.578142  # Kansas City - somehow middle of the country
+location = [39.100105, -94.578142]  # Kansas City - somehow middle of the country
 map_obj = folium.Map(location, zoom_start=12)
 
 #st.write(f"{city_data}")
