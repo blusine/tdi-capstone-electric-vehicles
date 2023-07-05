@@ -306,7 +306,7 @@ if selected_city and selected_vehicle:
     column_names = ['Period', 'Estimated Cost']
     df = pd.DataFrame(monthly_dollars)
     st.write(monthly_dollars
-    f"{df.columns()}"
+    f"{df}"
     )    
     df.reset_index(level=0, inplace=True)
     df.rename(columns = {columns[0]: 'Period', columns[1]: 'Estimated Cost'}, inplace = True)
