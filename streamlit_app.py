@@ -89,6 +89,7 @@ def load_data(filename):
         json_data = response['Body'].read().decode('utf-8')
         data = json.loads(json_data)
     elif filename[-4:] == '.pkl':
+        import pickle
         pkl_data = response['Body'].read()
         data = pickle.loads(pkl_data)      
     return data
