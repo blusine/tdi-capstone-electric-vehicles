@@ -159,6 +159,7 @@ Electric vehicles have gained a lot of popularity in recent years due to their e
 """
 )
 target_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_vehicle[0]) and (vehicle["model"] == selected_vehicle[1])][0]
+
 st.write(
 f"{target_vehicle}"
 )
