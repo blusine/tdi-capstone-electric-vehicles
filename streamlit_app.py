@@ -8,7 +8,7 @@ import branca
 from geopy.geocoders import Nominatim
 #import config
 import streamlit as st
-#from PIL import Image
+from PIL import Image
 # from streamlit_extras.add_vertical_space import add_vertical_space
 #from st_aggrid import AgGrid, GridOptionsBuilder
 #from st_aggrid.shared import GridUpdateMode
@@ -49,15 +49,15 @@ remote_css('https://fonts.googleapis.com/icon?family=Material+Icons')
 icon("electric_car")
 
 #markdown
-st.markdown("""
-    Electric vehicles have gained a lot of popularity in recent years due to their eco-friendliness, low emissions, and reduced reliance on fossil fuels. However, one of the most important factors that determine the feasibility and affordability of electric vehicles is their energy costs. This project predicts energy costs of electric vehicles using factors such as vehicle make/model, its battery capacities, travel distances and local electricity prices.
-""")
+#st.markdown("""
+#    Electric vehicles have gained a lot of popularity in recent years due to their eco-friendliness, low emissions, and reduced reliance on #fossil fuels. However, one of the most important factors that determine the feasibility and affordability of electric vehicles is their #energy costs. This project predicts energy costs of electric vehicles using factors such as vehicle make/model, its battery capacities, #travel distances and local electricity prices.
+#""")
      
 st.markdown(
 """
-Quick Info:
-- Select the vehicle you are interested in from the drop down list
+Directions:
 - Select the closest city where you intend to drive the vehicle
+- Select the vehicle you are interested in from the drop down list
 - Select the expected annual miles you intend to drive
 - Select the number of years you intend to use the vehicle
 - Color of icon: green: super rating > 5, orange: greater than 3 and less than 5, red: less than 3
@@ -120,7 +120,7 @@ with st.sidebar.form(key="my_form"):
     #    selectbox_model = st.selectbox("Choose a Vehicle Model", current_models)
     #"""
     
-    numberinput_threshold = st.number_input(
+    numberinput_miles = st.number_input(
         """Select Miles Estimated to Drive Annually""",
         value=12000,
         min_value=1000,
@@ -128,14 +128,17 @@ with st.sidebar.form(key="my_form"):
         step=100,
         format="%i",
     )
+    
+    numberslider_years = st.slider('📝 Input the number of years you intend to use the vehicle:', 1 , 25) 
 
-    st.markdown(
-        '<p class="small-font">Results Limited to top 5 per State in overall US</p>',
-        unsafe_allow_html=True,
-    )
     pressed = st.form_submit_button("Estimate Vehicle Costs")
 
-
+expander = st.sidebar.expander("What is this?")
+expander.write(
+    """
+Electric vehicles have gained a lot of popularity in recent years due to their eco-friendliness, low emissions, and reduced reliance on fossil fuels. However, one of the most important factors that determine the feasibility and affordability of electric vehicles is their energy costs. This app estimates energy costs of electric vehicles using factors such as **vehicle make/model, battery capacities, travel distances and local electricity prices.**
+"""
+)
 
 
 
