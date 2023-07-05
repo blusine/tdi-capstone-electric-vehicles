@@ -221,7 +221,7 @@ if selected_vehicle:
     # strip the 'km' from vehicle driving range to keep the number only
     driving_range = float(selected_vehicle[0]['erange_real'][:-3])
     monthly_dollars = calculate_KWH_costs(forecasts, battery, driving_range, selected_miles)
-    selected_city['cost'] = sum(monthly_dollars)
+    selected_city[0]['cost'] = sum(monthly_dollars)
     
     st.write(
     f"{monthly_dollars}"
@@ -278,7 +278,7 @@ def draw_map(city_data, color, m=None):
     return None
 
 if selected_city:
-    location = [selected_city['Latitude'], selected_city['Longitude']]
+    location = [selected_city[0]['Latitude'], selected_city[0]['Longitude']]
     map = folium.Map(location, zoom_start=14)
     draw_map(selected_city, 'red', map)
     st_data = st_folium(map, width=725)
