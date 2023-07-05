@@ -18,6 +18,7 @@ import boto3
 import json
 import jinja2
 import pmdarima
+import plost
 
 import utility_functions
 
@@ -226,7 +227,10 @@ if selected_vehicle and selected_city:
     st.write(
     f"{monthly_dollars}"
     )
-
+    
+    st.write(
+    f"{type(monthly_dollars)}"
+    )
     st.write(
     f"{selected_city[0]['cost']}"
     )
@@ -283,7 +287,7 @@ if not selected_city:
 else:
     location=[selected_city[0]['Latitude'], selected_city[0]['Longitude']]
     
-map_obj = folium.Map(location=location, zoom_start=8)
+map_obj = folium.Map(location=location, zoom_start=5)
     
 for city in city_data:
     #st.write(f"{city}")
