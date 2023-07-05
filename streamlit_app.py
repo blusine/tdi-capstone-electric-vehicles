@@ -231,6 +231,8 @@ if selected_vehicle and selected_city:
     f"{selected_city[0]['cost']}"
     )
 
+
+# Render a map
 # credit to https://www.kaggle.com/code/dabaker/fancy-folium
 def fancy_html(city_state, total_dollars):
     """ fancy_html draws a popup with city name and total cost, used for the map"""
@@ -260,9 +262,6 @@ def fancy_html(city_state, total_dollars):
     </html>
     """
     return html
-
-# Render a map
-
 #lats = [city['Latitude'] for city in city_data]
 #longs = [city['Longitude'] for city in city_data]
 #location = np.mean(lats), np.mean(longs)
@@ -272,7 +271,7 @@ def fancy_html(city_state, total_dollars):
 if selected_city:
     location=[selected_city[0]['Latitude'], selected_city[0]['Longitude']]
     map_obj = folium.Map(location=location, zoom_start=12)
-    html = fancy_html(city['city_state'], city['cost'])
+    html = fancy_html(selected_city[0]['city_state'], selected_city[0]['cost'])
     iframe = branca.element.IFrame(html=html,width=300,height=280)
     popup = folium.Popup(iframe,parse_html=True)
     folium.Marker(
