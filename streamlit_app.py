@@ -47,7 +47,7 @@ def icon(icon_name):
 remote_css('https://fonts.googleapis.com/icon?family=Material+Icons')
 
 # Create two columns using beta_columns
-col1, col2 = st.columns([1, 14])
+col1, col2 = st.columns([1, 20])
 
 # Add content to the first column
 with col1:
@@ -56,7 +56,8 @@ with col1:
     icon("electric_car")
 # Add content to the second column
 with col2:
-    st.subheader('Directions')
+    #st.subheader('Directions')
+    st.markdown('###### Directions')
     #st.write('**Directions**')
     
 
