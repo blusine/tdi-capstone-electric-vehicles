@@ -215,7 +215,7 @@ if selected_city:
     f"{forecasts}"
     )
     
-if selected_vehicle:
+if selected_vehicle and selected_city:
     # battery is the battery capacity in KWH of the vehicle
     battery = selected_vehicle[0]['battery']
     # strip the 'km' from vehicle driving range to keep the number only
@@ -260,22 +260,6 @@ def fancy_html(city_state, total_dollars):
     </html>
     """
     return html
-
-# Render a map    
-def draw_map(city_data, color, m=None):
-   
-    html = fancy_html(city_data['city_state'], city_data['cost'])
-    
-    iframe = branca.element.IFrame(html=html,width=300,height=280)
-    popup = folium.Popup(iframe,parse_html=True)
-    # center on icon, add marker
-    folium.Marker(
-        [city_data['Latitude'], city_data['Longitude']],
-          popup=popup,
-          icon=folium.Icon(color=color, icon='car'),
-          tooltip=city_data['city_state']).add_to(m)
-
-    return None
 
 # Render a map    
 def draw_map(city_data, color, m=None):
