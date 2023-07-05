@@ -216,7 +216,7 @@ if selected_vehicle:
     # battery is the battery capacity in KWH of the vehicle
     battery = selected_vehicle[0]['battery']
     # strip the 'km' from vehicle driving range to keep the number only
-    driving_range = (selected_vehicle[0]['erange_real'][:-3])
+    driving_range = float(selected_vehicle[0]['erange_real'][:-3])
     monthly_dollars = calculate_KWH_costs(forecasts, battery, driving_range, selected_miles)
     st.write(
     f"{monthly_dollars}"
