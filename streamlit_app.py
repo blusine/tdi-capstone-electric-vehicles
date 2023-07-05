@@ -294,7 +294,7 @@ for city in city_data:
 #st_data = st_folium(map_obj, width=725, feature_group_to_add=fg)
 #st.markdown(map_obj._repr_html_(), unsafe_allow_html=True)
 
-map_obj
+st.map_obj
 
 
 
