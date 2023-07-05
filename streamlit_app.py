@@ -277,11 +277,31 @@ def draw_map(city_data, color, m=None):
 
     return None
 
-if selected_city:
-    location = [selected_city[0]['Latitude'], selected_city[0]['Longitude']]
-    map = folium.Map(location, zoom_start=14)
-    draw_map(selected_city[0], 'red', map)
-    st_data = st_folium(map, width=725)
+# Render a map    
+def draw_map(city_data, color, m=None):
+    for city in city_data:
+        html = fancy_html(city['city_state'], city['cost'])
+        iframe = branca.element.IFrame(html=html,width=300,height=280)
+        popup = folium.Popup(iframe,parse_html=True)
+    
+        # add markers
+        if city['city_state'] == selected_city[0]['city_state']:
+            color = 'blue'
+        else:
+            color = 'red'
+        
+        folium.Marker(
+            [city['Latitude'], city['Longitude']],
+              popup=popup,
+              icon=folium.Icon(color=color, icon='car'),
+              tooltip=city['city_state']).add_to(m)
+
+    return None
+
+location = [selected_city[0]['Latitude'], selected_city[0]['Longitude']]
+map = folium.Map(location, zoom_start=15)
+draw_map(city_data, 'red', map)
+st_data = st_folium(map, width=725)
 
 
 
