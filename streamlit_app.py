@@ -265,7 +265,7 @@ def fancy_html(city_state, total_dollars):
 
 lats = [city['Latitude'] for city in city_data]
 longs = [city['Longitude'] for city in city_data]
-location = lats.mean(), longs.mean()
+location = np.mean(lats), np.mean(longs)
 map = folium.Map(location, zoom_start=15)
 
 for city in city_data:
