@@ -299,8 +299,8 @@ for city in city_data:
           tooltip=city['city_state']).add_to(map_obj)
         
 #draw_map(city_data, 'red', map)
-#st_data = st_folium(map, width=725)
-st.markdown(map_obj._repr_html_(), unsafe_allow_html=True)
+st_data = st_folium(map, width=725)
+#st.markdown(map_obj._repr_html_(), unsafe_allow_html=True)
 
 
 
