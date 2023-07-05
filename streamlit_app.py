@@ -161,13 +161,14 @@ Electric vehicles have gained a lot of popularity in recent years due to their e
 """
 )
 selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_vehicle[0]) and (vehicle["model"] == selected_vehicle[1])]
-If selected_vehicle:
+
+if selected_vehicle:
     st.write(
     f"{selected_vehicle[0]} "
     )
 
 selected_city = [city for city in city_data if city["city_state"] == selected_city]
-If selected_city:
+if selected_city:
     st.write(
     f"{selected_city[0]}"
     )
@@ -188,7 +189,7 @@ def predict_KWH(city, n_periods):
     
     return forecasts
 
-If selected_city:
+if selected_city:
     forecasts = predict_KHW(selected_city['city'], selected_years*12)
     st.write(
     f"{forecasts}"
