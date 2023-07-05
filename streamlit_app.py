@@ -168,7 +168,10 @@ st.write(
 f"{target_city}"
 )
 
-
+target_annual_miles = selected_miles
+st.write(
+f"{target_annual_miles, selected_years}"
+)
 
 #def
 #if (selected_city != "Choose a City") and ( selected_vehicle != "Choose a Vehicle"):
