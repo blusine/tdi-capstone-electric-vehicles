@@ -103,8 +103,8 @@ vehicle_data = vehicle_data.to_list()
 #Initialize data
 #city_coordinates = list(city['geoloc'] for city in city_data)
 for city in city_data:
+    city = json.loads(city)
     city["cost"] = " "
-    #st.write(f"{type(city)}")
 
 #city_costs = [{ciy: " "} for city in city_data['city']]
                      
