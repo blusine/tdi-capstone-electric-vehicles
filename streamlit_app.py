@@ -218,12 +218,18 @@ if selected_vehicle:
     # strip the 'km' from vehicle driving range to keep the number only
     driving_range = float(selected_vehicle[0]['erange_real'][:-3])
     monthly_dollars = calculate_KWH_costs(forecasts, battery, driving_range, selected_miles)
+    total_dollars = sum(monthly_dollars)
+    
     st.write(
     f"{monthly_dollars}"
     )
-        
-#print(forecasts)
-#if (selected_city != "Choose a City") and ( selected_vehicle != "Choose a Vehicle"):
+
+    st.write(
+    f"{total_dollars}"
+    )
+
+# Render a map
+
     
 
 
