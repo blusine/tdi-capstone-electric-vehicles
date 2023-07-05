@@ -161,13 +161,13 @@ Electric vehicles have gained a lot of popularity in recent years due to their e
 target_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_vehicle[0]) and (vehicle["model"] == selected_vehicle[1])]
 selected_vehicle = target_vehicle
 st.write(
-f"{selected_vehicle}, {len(selected_vehicle)}, {type(selected_vehicle)}, {selected_vehicle[0]} "
+f"{selected_vehicle[0]} "
 )
 
 target_city = [city for city in city_data if city["city_state"] == selected_city]
 selected_city = target_city
 st.write(
-f"{city for city in selected_city}"
+f"{selected_city[0]}"
 )
 
 
