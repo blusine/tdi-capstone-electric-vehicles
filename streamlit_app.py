@@ -167,7 +167,7 @@ f"{selected_vehicle}, {len(selected_vehicle)}, {type(selected_vehicle)}"
 target_city = [city for city in city_data if city["city_state"] == selected_city]
 selected_city = target_city
 st.write(
-f"{selected_city}"
+f"{city for city in selected_city}"
 )
 
 
