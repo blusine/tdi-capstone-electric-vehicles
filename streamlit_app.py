@@ -228,7 +228,7 @@ if selected_vehicle:
     )
 
     st.write(
-    f"{total_dollars}"
+    f"{selected_city[0]['cost']}"
     )
 
 # credit to https://www.kaggle.com/code/dabaker/fancy-folium
