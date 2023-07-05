@@ -16,6 +16,7 @@ from datetime import datetime
 import requests
 import boto3
 import json
+import jinja2
 
 import utility_functions
 
@@ -91,16 +92,23 @@ def load_data(filename):
     return data
 
 # read the data
-df_cities = load_data('data/cities_geocoded.csv')
-df_vehicles = load_data('data/electric_vehicles.csv')
-city_coordinates = df_cities['geoloc']
+city_data = load_data('data/cities_geocoded.json')
+vehicle_data = load_data('data/electric_vehicles.json')
+
+#Initialize data
+city_coordinates = [{city: city_data['geoloc']
+city_costs = [{ciy: " "} for city in city_data['city']]
+                     
+st.write(
+    f"{city_costs}"
+)
+
 #dict_vehicles = df_vehicles.set_index(['make'])['model'].to_dict()
-#st.write(
-#    f"{dict_vehicles}"
-#)
-city_choices = list(df_cities["city_state"])
+
+city_choices = list(city["city_state"] for city in city_data)
 city_choices.insert(0, "Select a City")
-vehicle_choices = list(zip(df_vehicles['make'], df_vehicles['model']))
+#vehicle_choices = list(zip(vehicle_data['make'], vehicle_data['model']))
+vehicle_choices = [(vehicle['make'], vehicle['model']) for vehicle in vehicle_data]                    
 vehicle_choices.insert(0, "Select a Vehicle")
 
 #"""
@@ -112,8 +120,8 @@ vehicle_choices.insert(0, "Select a Vehicle")
 #"""
 
 with st.sidebar.form(key="my_form"):
-    selectbox_city = st.selectbox("Choose a City", city_choices)
-    selectbox_vehicle = st.selectbox("Choose a Vehicle Make", vehicle_choices)
+    selected_city = st.selectbox("Choose a City", city_choices)
+    selected_vehicle = st.selectbox("Choose a Vehicle", vehicle_choices)
     
     #"""
     #if selectbox_vehicle == 'Select a Make':
@@ -124,7 +132,7 @@ with st.sidebar.form(key="my_form"):
     #    selectbox_model = st.selectbox("Choose a Vehicle Model", current_models)
     #"""
     
-    numberinput_miles = st.number_input(
+    selected_miles = st.number_input(
         """Select Miles You Estimate to Drive Annually""",
         value=12000,
         min_value=1000,
@@ -133,7 +141,7 @@ with st.sidebar.form(key="my_form"):
         format="%i",
     )
     
-    numberslider_years = st.slider('📝 Input Number of Years You Intend to Use the Vehicle:', 1 , 25) 
+    selected_years = st.slider('📝 Input Number of Years You Intend to Use the Vehicle:', 1 , 25) 
 
     pressed = st.form_submit_button("Estimate Vehicle Costs")
 
@@ -144,7 +152,9 @@ Electric vehicles have gained a lot of popularity in recent years due to their e
 """
 )
 
-
+#def 
+#if (selected_city != "Choose a City") and ( selected_vehicle != "Choose a Vehicle"):
+    
 
 
 
