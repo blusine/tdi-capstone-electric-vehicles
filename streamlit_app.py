@@ -51,7 +51,7 @@ col1, col2 = st.columns([1, 20])
 with col1:
     icon("electric_car")
 with col2:
-    st.markdown(':green[##### Directions]')
+    st.markdown('##### :green[Directions]')
     
 
 #markdown
