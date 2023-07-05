@@ -268,6 +268,8 @@ longs = [city['Longitude'] for city in city_data]
 location = np.mean(lats), np.mean(longs)
 map = folium.Map(location, zoom_start=15)
 
+st.write(f"{city_data}")
+
 for city in city_data:
     st.write(f"{city}")
     html = fancy_html(city['city_state'], city['cost'])
