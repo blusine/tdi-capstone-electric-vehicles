@@ -292,7 +292,7 @@ for city in city_data:
             currency = "${:,.2f}".format(city['cost'])
             color = 'red'        
         else:
-            currency = ' '
+            currency = city['cost']
             color = 'blue'
     
     html = fancy_html(city['city_state'], currency)
