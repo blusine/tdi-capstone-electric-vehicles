@@ -89,8 +89,8 @@ def load_data(filename):
         json_data = response['Body'].read().decode('utf-8')
         data = json.loads(json_data)
     elif filename[-4:] == '.pkl':
-        with open(filename, 'rb') as pkl:
-            data = pickle.load(pkl)        
+        pkl_data = response['Body'].read()
+        data = pickle.loads(pkl_data)      
     return data
 
 # read the data somehow the json data did not get parsed correctly, so I reading csv and converting to json again
