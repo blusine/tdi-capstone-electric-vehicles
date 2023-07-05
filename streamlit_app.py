@@ -267,17 +267,9 @@ def fancy_html(city_state, total_dollars):
 #longs = [city['Longitude'] for city in city_data]
 #location = np.mean(lats), np.mean(longs)
         
-@st.cache(allow_output_mutation=True)
-def create_map():
-    # Create the initial map object
-    #location = [39.100105, -94.578142]  # Kansas City - somehow middle of the country
-    m = folium.Map(location=[39.100105, -94.578142], zoom_start=12)
-    return m
-
-map_obj = create_map()
 
 #st.write(f"{city_data}")
-
+map_obj = folium.Map(location=[39.100105, -94.578142], zoom_start=12)
 fg = folium.FeatureGroup(name="Markers")
 
 for city in city_data:
