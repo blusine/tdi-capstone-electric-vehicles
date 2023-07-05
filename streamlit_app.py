@@ -164,7 +164,7 @@ st.write(
 f"{target_vehicle}"
 )
 
-target_city = [city for city in city_data if city["city_state"] == selected_city][0]
+target_city = [city for city in city_data if city["city_state"] == selected_city]
 st.write(
 f"{target_city}"
 )
