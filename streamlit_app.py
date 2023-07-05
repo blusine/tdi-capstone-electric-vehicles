@@ -91,7 +91,9 @@ df_cities = load_data('data/cities_geocoded.csv')
 df_vehicles = load_data('data/electric_vehicles.csv')
 city_coordinates = df_cities['geoloc']
 dict_vehicles = df_vehicles.set_index(['make'])['model'].to_dict()
-
+st.write(
+    f"{dict_vehicles}"
+)
 city_choices = list(df_cities["city_state"])
 city_choices.insert(0, "Select a City")
 #vehicle_choices = list(zip(df_vehicles['make'], df_vehicles['model']))
