@@ -291,9 +291,9 @@ for city in city_data:
         if city['city_state'] == selected_city[0]['city_state']:
             currency = "${:,.2f}".format(city['cost'])
             color = 'red'        
-    else:
-        currency = city['cost']
-        color = 'blue'
+        else:
+            currency = city['cost']
+            color = 'blue'
     
     html = fancy_html(city['city_state'], currency)
     iframe = branca.element.IFrame(html=html,width=300,height=280)
