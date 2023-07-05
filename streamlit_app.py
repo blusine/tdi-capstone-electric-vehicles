@@ -302,7 +302,7 @@ for city in city_data:
     folium.Marker(
         [city['Latitude'], city['Longitude']],
           popup=popup,
-          icon=folium.Icon(color=color, icon='car'),
+          icon=folium.Icon(color=color, icon='info-sign'),
           tooltip=city['city_state']).add_to(map_obj)
     
     
