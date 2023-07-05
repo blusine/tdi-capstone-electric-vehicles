@@ -308,12 +308,13 @@ if selected_city and selected_vehicle:
     #df.reset_index(level=0, inplace=True)
     #df.rename(columns = {'index': 'Period', '0': 'Cost'}, inplace = True)
     
-    plost.line_chart(
-      df,
-      x='Period',  # The name of the column to use for the x axis.
-      y='Estimated Cost',  # The name of the column to use for the data itself.
-      #color='stock_name', # The name of the column to use for the line colors.
-    )
+    with st.echo():
+        plost.line_chart(
+          df,
+          x='Period',  # The name of the column to use for the x axis.
+          y='Estimated Cost',  # The name of the column to use for the data itself.
+          #color='stock_name', # The name of the column to use for the line colors.
+        )
     
     st.write(
     f"{df}"
