@@ -308,7 +308,7 @@ for city in city_data:
     
     
     #st_folium(map_obj, width=725)
-    folium_static(map_obj)
+folium_static(map_obj)
 
 
 
