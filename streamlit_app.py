@@ -158,16 +158,18 @@ expander.write(
 Electric vehicles have gained a lot of popularity in recent years due to their eco-friendliness, low emissions, and reduced reliance on fossil fuels. However, one of the most important factors that determine the feasibility and affordability of electric vehicles is their energy costs. This app estimates energy costs of electric vehicles using factors such as **vehicle make/model, battery capacities, travel distances and local electricity prices.**
 """
 )
-target_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_vehicle[0]) and (vehicle["model"] == selected_vehicle[1])][0]
-
+target_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_vehicle[0]) and (vehicle["model"] == selected_vehicle[1])]
+selected_vehicle = target_vehicle[0]
 st.write(
-f"{target_vehicle}"
+f"{selected_vehicle}"
 )
 
-target_city = [city for city in city_data if city["city_state"] == selected_city][0]
+target_city = [city for city in city_data if city["city_state"] == selected_city]
+selected_city = target_city[0]
 st.write(
-f"{target_city}"
+f"{selected_city}"
 )
+
 
 st.write(
 f"{selected_miles, selected_years}"
