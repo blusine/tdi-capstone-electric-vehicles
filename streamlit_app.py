@@ -266,8 +266,9 @@ def fancy_html(city_state, total_dollars):
 #lats = [city['Latitude'] for city in city_data]
 #longs = [city['Longitude'] for city in city_data]
 #location = np.mean(lats), np.mean(longs)
-location = 39.100105, -94.578142
-map = folium.Map(location, zoom_start=15)
+@st.cache(allow_output_mutation=True)
+location = 39.100105, -94.578142  # Kansas City - somehow middle of the country
+map_obj = folium.Map(location, zoom_start=12)
 
 #st.write(f"{city_data}")
 
@@ -287,11 +288,11 @@ for city in city_data:
         [city['Latitude'], city['Longitude']],
           popup=popup,
           icon=folium.Icon(color=color, icon='car'),
-          tooltip=city['city_state']).add_to(map)
+          tooltip=city['city_state']).add_to(map_obj)
         
 #draw_map(city_data, 'red', map)
-st_data = st_folium(map, width=725)
-
+#st_data = st_folium(map, width=725)
+st.markdown(map_obj._repr_html_(), unsafe_allow_html=True)
 
 
 
