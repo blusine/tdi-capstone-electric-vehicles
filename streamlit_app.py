@@ -277,7 +277,7 @@ if selected_city:
     folium.Marker(
         [city['Latitude'], city['Longitude']],
         popup=popup,
-        icon=folium.Icon(color=red, icon='car'),
+        icon=folium.Icon(color='red', icon='car'),
         tooltip=city['city_state']).add_to(map_obj)
         
 #draw_map(city_data, 'red', map)
