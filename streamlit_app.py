@@ -90,34 +90,35 @@ def load_data(filename):
 df_cities = load_data('data/cities_geocoded.csv')
 df_vehicles = load_data('data/electric_vehicles.csv')
 city_coordinates = df_cities['geoloc']
-dict_vehicles = df_vehicles.set_index(['make'])['model'].to_dict()
-st.write(
-    f"{dict_vehicles}"
-)
+#dict_vehicles = df_vehicles.set_index(['make'])['model'].to_dict()
+#st.write(
+#    f"{dict_vehicles}"
+#)
 city_choices = list(df_cities["city_state"])
 city_choices.insert(0, "Select a City")
 vehicle_choices = list(zip(df_vehicles['make'], df_vehicles['model']))
 vehicle_choices.insert(0, "Select a Vehicle")
 
-"""
-vehicle_choices = list(df_vehicles['make'].unique())
-vehicle_choices.insert(0, "Select a Make")
-#current_models = list(df_vehicles[df_vehicles['make'] == vehicle_choices]['model'].unique())
-model_choices = list(df_vehicles['model'].unique())
-model_choices.insert(0, "Select a Make First")
-"""
+#"""
+#vehicle_choices = list(df_vehicles['make'].unique())
+#vehicle_choices.insert(0, "Select a Make")
+##current_models = list(df_vehicles[df_vehicles['make'] == vehicle_choices]['model'].unique())
+#model_choices = list(df_vehicles['model'].unique())
+#model_choices.insert(0, "Select a Make First")
+#"""
 
 with st.sidebar.form(key="my_form"):
     selectbox_city = st.selectbox("Choose a City", city_choices)
     selectbox_vehicle = st.selectbox("Choose a Vehicle Make", vehicle_choices)
-    """
-    if selectbox_vehicle == 'Select a Make':
-        pass
-        #selectbox_model = st.selectbox("Choose a Vehicle Model", "Select a Make First")
-    else:        
-        current_models = dict_vehicles[selectbox_vehicle]
-        selectbox_model = st.selectbox("Choose a Vehicle Model", current_models)
-    """
+    
+    #"""
+    #if selectbox_vehicle == 'Select a Make':
+    #    pass
+    #    #selectbox_model = st.selectbox("Choose a Vehicle Model", "Select a Make First")
+    #else:        
+    #    current_models = dict_vehicles[selectbox_vehicle]
+    #    selectbox_model = st.selectbox("Choose a Vehicle Model", current_models)
+    #"""
     
     numberinput_threshold = st.number_input(
         """Select Miles Estimated to Drive Annually""",
