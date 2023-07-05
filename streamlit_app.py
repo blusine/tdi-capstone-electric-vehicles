@@ -98,7 +98,8 @@ vehicle_data = load_data('data/electric_vehicles.json')
 #Initialize data
 #city_coordinates = list(city['geoloc'] for city in city_data)
 for city in city_data:
-    city["cost"] = " " 
+    #city["cost"] = " " 
+    st.write(f"{type(city)}")
 
 #city_costs = [{ciy: " "} for city in city_data['city']]
                      
