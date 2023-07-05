@@ -267,8 +267,13 @@ def fancy_html(city_state, total_dollars):
 #longs = [city['Longitude'] for city in city_data]
 #location = np.mean(lats), np.mean(longs)
 @st.cache(allow_output_mutation=True)
-location = [39.100105, -94.578142]  # Kansas City - somehow middle of the country
-map_obj = folium.Map(location, zoom_start=12)
+def create_map():
+    # Create the initial map object
+    #location = [39.100105, -94.578142]  # Kansas City - somehow middle of the country
+    m = folium.Map(location=[39.100105, -94.578142], zoom_start=12)
+    return m
+
+map_obj = create_map()
 
 #st.write(f"{city_data}")
 
@@ -278,9 +283,12 @@ for city in city_data:
     iframe = branca.element.IFrame(html=html,width=300,height=280)
     popup = folium.Popup(iframe,parse_html=True)
     
+    if selected_city:
         # add markers
-    if city['city_state'] == selected_city[0]['city_state']:
-        color = 'red'
+        if city['city_state'] == selected_city[0]['city_state']:
+            color = 'red'
+        else:
+            color = 'blue'
     else:
         color = 'blue'
         
