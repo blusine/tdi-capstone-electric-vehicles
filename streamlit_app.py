@@ -293,7 +293,10 @@ for city in city_data:
     #st.write(f"{city}")
     if selected_city:
         if city['city_state'] == selected_city[0]['city_state']:
-            currency = "${:,.2f}".format(city['cost'])
+            if selected_vehicle:
+                currency = "${:,.2f}".format(city['cost'])
+            else:
+                currency = city['cost']
             color = 'red'        
         else:
             currency = city['cost']
