@@ -94,12 +94,19 @@ city_coordinates = df_cities['geoloc']
 
 city_choices = list(df_cities["city_state"])
 city_choices.insert(0, "Select a City")
-vehicle_choices = list(zip(df_vehicles['make'], df_vehicles['model']))
-#vehicle_choices = list(f"{df_vehicle['make']} , {df_vehicle['model']}" for df_vehicle in df_vehicles)
+#vehicle_choices = list(zip(df_vehicles['make'], df_vehicles['model']))
+#vehicle_choices.insert(0, "Select a Vehicle")
+vehicle_choices = list(df_vehicles['make'].unique())
+vehicle_choices.insert(0, "Select a Make")
+
+model_choices = list(set(df_vehicles[df_vehicles['make'] == vehicle_choices]['model']))
+model_choices.insert(0, "Select a Model")
 
 with st.sidebar.form(key="my_form"):
     selectbox_city = st.selectbox("Choose a City", city_choices)
-    selectbox_vehicle = st.selectbox("Choose a Vehicle", vehicle_choices)
+    selectbox_vehicle = st.selectbox("Choose a Vehicle Make", vehicle_choices)
+    selectbox_model = st.selectbox("Choose a Vehicle Model", model_choices)
+    
     numberinput_threshold = st.number_input(
         """Select Miles Estimated to Drive Annually""",
         value=12000,
