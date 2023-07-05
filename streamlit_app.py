@@ -46,19 +46,12 @@ def icon(icon_name):
 #local_css("style.css")
 remote_css('https://fonts.googleapis.com/icon?family=Material+Icons')
 
-# Create two columns using beta_columns
+# Create two columns to save space vertically
 col1, col2 = st.columns([1, 20])
-
-# Add content to the first column
 with col1:
-    #st.header('Column 1')
-    #st.write('Content for column 1')
     icon("electric_car")
-# Add content to the second column
 with col2:
-    #st.subheader('Directions')
-    st.markdown('###### Directions')
-    #st.write('**Directions**')
+    st.markdown(':green[##### Directions]')
     
 
 #markdown
