@@ -302,9 +302,11 @@ for city in city_data:
 folium_static(map_obj)
 
 # Draw a chart with monthly estimated costs
-column_names = ['Period', 'Estimated Cost']
-df = pd.DataFrame(forecasts)
-df.reset_index(level=0, inplace=True).rename(columns = {column[0]: 'Period', column[1]: 'Estimated Cost'}, inplace = True)
-st.write(
-f"{df}"
-)
+if selected_city and selected_vehicle:
+    column_names = ['Period', 'Estimated Cost']
+    df = pd.DataFrame(forecasts)
+    st.write(
+    f"{df}"
+    )    
+    df.reset_index(level=0, inplace=True)
+    df.rename(columns = {column[0]: 'Period', column[1]: 'Estimated Cost'}, inplace = True)
