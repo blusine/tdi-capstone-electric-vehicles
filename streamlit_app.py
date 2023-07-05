@@ -305,8 +305,8 @@ folium_static(map_obj)
 if selected_city and selected_vehicle:
     column_names = ['Month', 'Estimated Cost']
     df = pd.DataFrame(monthly_dollars)  
-    #df.reset_index(level=0, inplace=True)
-    #df.rename(columns = {'index': 'Period', '0': 'Cost'}, inplace = True)
+    df.reset_index(level=0, inplace=True)
+    df.rename(columns = {'index': 'Period', '0': 'Cost'}, inplace = True)
     
     with st.echo():
         plost.line_chart(
