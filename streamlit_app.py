@@ -98,14 +98,15 @@ city_choices.insert(0, "Select a City")
 #vehicle_choices.insert(0, "Select a Vehicle")
 vehicle_choices = list(df_vehicles['make'].unique())
 vehicle_choices.insert(0, "Select a Make")
-current_models = list(df_vehicles[df_vehicles['make'] == vehicle_choices]['model'].unique())
-model_choices = current_models
-model_choices.insert(0, "Select a Model")
+#current_models = list(df_vehicles[df_vehicles['make'] == vehicle_choices]['model'].unique())
+#model_choices = current_models
+model_choices.insert(0, "Select a Make First")
 
 with st.sidebar.form(key="my_form"):
     selectbox_city = st.selectbox("Choose a City", city_choices)
     selectbox_vehicle = st.selectbox("Choose a Vehicle Make", vehicle_choices)
-    selectbox_model = st.selectbox("Choose a Vehicle Model", model_choices)
+    current_models = list(df_vehicles[df_vehicles['make'] == vehicle_choices]['model'].unique())
+    selectbox_model = st.selectbox("Choose a Vehicle Model", current_models)
     
     numberinput_threshold = st.number_input(
         """Select Miles Estimated to Drive Annually""",
