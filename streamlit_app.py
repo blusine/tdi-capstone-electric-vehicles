@@ -98,8 +98,8 @@ city_choices.insert(0, "Select a City")
 #vehicle_choices.insert(0, "Select a Vehicle")
 vehicle_choices = list(df_vehicles['make'].unique())
 vehicle_choices.insert(0, "Select a Make")
-
-model_choices = list(df_vehicles[df_vehicles['make'] == vehicle_choices]['model'].unique())
+current_models = list(df_vehicles[df_vehicles['make'] == vehicle_choices]['model'].unique())
+model_choices = current_models
 model_choices.insert(0, "Select a Model")
 
 with st.sidebar.form(key="my_form"):
