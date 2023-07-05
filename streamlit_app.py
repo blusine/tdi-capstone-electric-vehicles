@@ -1,7 +1,7 @@
 import pandas as pd
 #pd.options.display.float_format = '{:.2f}'.format
 import numpy as np
-from streamlit_folium import st_folium
+from streamlit_folium import st_folium, folium_static
 import altair as alt
 import folium
 import branca
