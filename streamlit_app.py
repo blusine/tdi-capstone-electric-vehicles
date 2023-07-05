@@ -19,6 +19,7 @@ import json
 import jinja2
 import pmdarima
 import plost
+import matplotlib.pyplot as plt
 
 import utility_functions
 
@@ -315,7 +316,16 @@ if selected_city and selected_vehicle:
           y='Estimated Cost',  # The name of the column to use for the data itself.
           #color='stock_name', # The name of the column to use for the line colors.
         )
-    
+ 
+    plt.plot(df['Month'], df['Estimated Cost'])
+    plt.title('Sine Wave')
+    plt.xlabel('Month')
+    ylabel = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
+    plt.ylabel(ylabel)
+
+    # Display the chart in Streamlit
+    st.pyplot(plt)
+
     st.write(
     f"{df}"
     ) 
