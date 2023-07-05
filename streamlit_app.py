@@ -286,7 +286,7 @@ for city in city_data:
         [city['Latitude'], city['Longitude']],
           popup=popup,
           icon=folium.Icon(color=color, icon='car'),
-          tooltip=city['city_state']).add_to(m)
+          tooltip=city['city_state']).add_to(map)
         
 #draw_map(city_data, 'red', map)
 st_data = st_folium(map, width=725)
