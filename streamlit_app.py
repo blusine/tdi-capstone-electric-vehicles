@@ -47,7 +47,7 @@ def icon(icon_name):
 remote_css('https://fonts.googleapis.com/icon?family=Material+Icons')
 
 # Create two columns using beta_columns
-col1, col2 = st.columns(2)
+col1, col2 = st.columns([1, 4])
 
 # Add content to the first column
 with col1:
