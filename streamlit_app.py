@@ -270,15 +270,16 @@ def fancy_html(city_state, total_dollars):
 
 #st.write(f"{city_data}")
 if selected_city:
-    map_obj = folium.Map(location=[selected_city[0]['Latitude'], selected_city[0]['Longitude']], zoom_start=12)
+    location=[selected_city[0]['Latitude'], selected_city[0]['Longitude']]
+    map_obj = folium.Map(location=location, zoom_start=12)
     html = fancy_html(city['city_state'], city['cost'])
     iframe = branca.element.IFrame(html=html,width=300,height=280)
     popup = folium.Popup(iframe,parse_html=True)
     folium.Marker(
-        [city['Latitude'], city['Longitude']],
+        location,
         popup=popup,
         icon=folium.Icon(color='red', icon='car'),
-        tooltip=city['city_state']).add_to(map_obj)
+        tooltip=selected_city[0]['city_state']).add_to(map_obj)
         
 #draw_map(city_data, 'red', map)
 #st_data = st_folium(map_obj, width=725, feature_group_to_add=fg)
