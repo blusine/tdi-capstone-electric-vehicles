@@ -135,6 +135,7 @@ if selected_vehicle:
     st.write(
     f"{selected_vehicle[0]} "
     )
+selected_city = [city for city in city_data if city["city_state"] == selected_city]
 
 def predict_KWH(city, n_periods):
     """ this function predicts $ prices for a consumer per KWH of electricity purchased in a given city
