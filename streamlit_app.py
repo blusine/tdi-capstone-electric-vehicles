@@ -193,23 +193,26 @@ def calculate_KWH_costs(forecasts, battery, driving_range, selected_miles):
     monthly_dollars = monthly_KWH * forecasts
     return monthly_dollars
 
+# Call the KWH functions for each selected vehicle and city
 if selected_vehicle:
-
-    for vehicle in selected_vehicle:
-        # battery is the battery capacity in KWH of the vehicle
-        battery = vehicle['battery']
-        # strip the 'km' from vehicle driving range to keep the number only
-        driving_range = float(vehicle['erange_real'][:-3])
-    
-        #tmp_forecast = {}
-        #tmp_dollars = {}
-        #tmp_cost = {}    
-        for city in city_data:
-            city['forecasts'][(vehicle['make'], vehicle['model'])] = predict_KWH(city['city'], selected_years*12)
-            city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = calculate_KWH_costs(city['forecasts'], battery, driving_range, selected_miles)
-            city['cost'][(vehicle['make'], vehicle['model'])] = sum(city['monthly_dollars'])
-
-#city['forecasts'][(vehicle['make'], vehicle['model'])]
+    for city in city_data:
+        city['forecasts'] = {}
+        city['monthly_dollars'] = {}
+        city['cost'] = {}
+        for vehicle in selected_vehicle:
+            # battery is the battery capacity in KWH of the vehicle
+            battery = vehicle['battery']
+            # strip the 'km' from vehicle driving range to keep the number only
+            driving_range = float(vehicle['erange_real'][:-3])
+        
+            tmp_forecast = predict_KWH(city['city'], selected_years*12)
+            tmp_dollars = calculate_KWH_costs(tmp_forecast, battery, driving_range, selected_miles)
+            tmp_cost = sum(city['monthly_dollars'])
+            
+            city['forecasts'][(vehicle['make'], vehicle['model'])] = tmp_forecast
+            city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
+            city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
+        
 # Render a map
 # credit to https://www.kaggle.com/code/dabaker/fancy-folium
 def fancy_html(city_state, total_dollars):
