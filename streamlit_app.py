@@ -258,7 +258,9 @@ map_obj = folium.Map(location=location, zoom_start=5)
 
 for city in city_data:
     if selected_vehicle:
-        currency = "${:,.2f}".format(city['cost'])
+        currency = []
+        for vehicle in selected_vehicle:
+            currency.append("${:,.2f}".format(city['cost'][(vehicle['make'], vehicle['model'])]))
     else:
         currency = ' '
         
