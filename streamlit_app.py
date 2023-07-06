@@ -207,7 +207,7 @@ if selected_vehicle:
         
             tmp_forecast = predict_KWH(city['city'], selected_years*12)
             tmp_dollars = calculate_KWH_costs(tmp_forecast, battery, driving_range, selected_miles)
-            tmp_cost = sum(city['monthly_dollars'])
+            tmp_cost = sum(tmp_dollars)
             
             city['forecasts'][(vehicle['make'], vehicle['model'])] = tmp_forecast
             city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
