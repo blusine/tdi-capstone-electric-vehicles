@@ -89,10 +89,6 @@ vehicle_data1 = load_data('data/electric_vehicles.csv')
 vehicle_data1 = vehicle_data1.apply(lambda x: json.dumps(x.to_dict(), ensure_ascii=False), axis=1)
 vehicle_data1 = vehicle_data1.to_list()
 
-st.write(
-    f"{vehicle_data1} "
-    )
-    
 #Initialize data
 city_data = []
 for city in city_data1:
