@@ -135,6 +135,12 @@ if selected_vehicle:
     st.write(
     f"{selected_vehicle[0]} "
     )
+    
+with st.expander("Expand to see the selected vehicle information"):
+    #dataset_name = st.selectbox("Datasets", datasets)
+    st.write(pd.DataFrame(selected_vehicle))
+
+    
 selected_city = [city for city in city_data if city["city_state"] == selected_city]
 
 def predict_KWH(city, n_periods):
