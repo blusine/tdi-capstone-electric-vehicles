@@ -137,9 +137,10 @@ Electric vehicles have gained a lot of popularity in recent years due to their e
 """
 )
 
-st.write(
-    f"{selected_vehicle} "
-    )
+for i in selected_vehicle:
+    st.write(
+        f"{selected_vehicle[i]} "
+        )
 
 selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_vehicle[i][0]) and (vehicle["model"] == selected_vehicle[i][1] for i in selected_vehicle)]
 
