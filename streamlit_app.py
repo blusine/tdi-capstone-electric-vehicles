@@ -185,8 +185,8 @@ def calculate_KWH_costs(forecasts, battery, driving_range, selected_miles):
     selected_miles = selected_miles / 12
     # Step 3: calculate # of monthly charges
     monthly_charges = selected_miles / driving_range
-    # Step 4: consider charging efficiency: more energy is used to charge the battery
-    battery = battery * 1.15
+    # Step 4: consider charging efficiency and real energy used: more energy is used to charge the battery and drive in various conditions
+    battery = battery * 1.3
     # Step 5: monthly KWH to keep the car running
     monthly_KWH = monthly_charges * battery
     # Step 6: monthy costs
@@ -194,16 +194,22 @@ def calculate_KWH_costs(forecasts, battery, driving_range, selected_miles):
     return monthly_dollars
 
 if selected_vehicle:
-    # battery is the battery capacity in KWH of the vehicle
-    battery = selected_vehicle[0]['battery']
-    # strip the 'km' from vehicle driving range to keep the number only
-    driving_range = float(selected_vehicle[0]['erange_real'][:-3])
+
+    for vehicle in selected_vehicle:
+        # battery is the battery capacity in KWH of the vehicle
+        battery = vehicle['battery']
+        # strip the 'km' from vehicle driving range to keep the number only
+        driving_range = float(vehicle['erange_real'][:-3])
     
-    for city in city_data:
-        city['forecasts'] = predict_KWH(city['city'], selected_years*12)
-        city['monthly_dollars'] = calculate_KWH_costs(city['forecasts'], battery, driving_range, selected_miles)
-        city['cost'] = sum(city['monthly_dollars'])
-    
+        #tmp_forecast = {}
+        #tmp_dollars = {}
+        #tmp_cost = {}    
+        for city in city_data:
+            city['forecasts'][(vehicle['make'], vehicle['model'])] = predict_KWH(city['city'], selected_years*12)
+            city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = calculate_KWH_costs(city['forecasts'], battery, driving_range, selected_miles)
+            city['cost'][(vehicle['make'], vehicle['model'])] = sum(city['monthly_dollars'])
+
+#city['forecasts'][(vehicle['make'], vehicle['model'])]
 # Render a map
 # credit to https://www.kaggle.com/code/dabaker/fancy-folium
 def fancy_html(city_state, total_dollars):
