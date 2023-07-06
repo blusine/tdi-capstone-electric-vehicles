@@ -311,7 +311,7 @@ if selected_city and selected_vehicle:
     
     with st.echo():
         plost.line_chart(
-          data = df
+          data = df,
           x='index',  # The name of the column to use for the x axis.
           y='0',  # The name of the column to use for the data itself.
           #color='stock_name', # The name of the column to use for the line colors.
