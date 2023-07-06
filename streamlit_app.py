@@ -247,12 +247,17 @@ if selected_city and selected_vehicle:
     #df.reset_index(level=0, inplace=True)
     #df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
     
+    font_properties = {
+    'family': 'serif',
+    'weight': 'bold',
+    'size': 12
+    }
     plt.figure(figsize=(6, 4))
     plt.plot(df)
     plt.xlabel('Month')
     plt.ylabel('Monthly Cost, USD')
     title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
-    plt.title(title)
+    plt.title(title, fontdict=font_properties)
     
     # Display the chart
     st.pyplot(plt)
@@ -261,7 +266,15 @@ if selected_city and selected_vehicle:
     x='index:Q',
     y='value:Q'
     )
- 
-    st.altair_chart(chart, use_container_width=True)
-    chart.save("Capstone/altair_chart")
+    #st.altair_chart(chart, use_container_width=True)
+    st.write(chart)
+    
+    with st.echo():
+        plost.line_chart(
+          data = df,
+          x='index',  # The name of the column to use for the x axis.
+          y= df ,  # The name of the column to use for the data itself.
+          #color='stock_name', # The name of the column to use for the line colors.
+        )
+
 
