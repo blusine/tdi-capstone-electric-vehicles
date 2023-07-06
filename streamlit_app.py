@@ -312,20 +312,20 @@ if selected_city and selected_vehicle:
         plost.line_chart(
           data = df,
           x='Month',  # The name of the column to use for the x axis.
-          y='Estimated Cost',  # The name of the column to use for the data itself.
+          y='Cost',  # The name of the column to use for the data itself.
           #color='stock_name', # The name of the column to use for the line colors.
         )
- 
-    plt.plot(df['Month'], df['Cost'])
-    plt.title('Sine Wave')
-    plt.xlabel('Month')
-    ylabel = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
-    plt.ylabel(ylabel)
-
-    # Display the chart in Streamlit
-    st.pyplot(plt)
 
     st.write(
     f"{df}"
     ) 
-    
+     
+    plt.plot(df['Month'], df['Cost'])
+    plt.xlabel('Month')
+    plt.ylabel('Monthly Cost')
+    title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
+    plt.title(title)
+
+    # Display the chart in Streamlit
+    st.pyplot(plt)
+
