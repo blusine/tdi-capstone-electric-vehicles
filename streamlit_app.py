@@ -258,8 +258,8 @@ if selected_city and selected_vehicle:
     #alt.X('index').axis().title('Month'),
     #alt.Y('0').axis(format='$').title('USD')
     
-    x=alt.X('index', axis=alt.Axis(title='Month')),
-    y=alt.Y('0', axis=alt.Axis(title='USD'))
+    x=alt.X('index:Q', axis=alt.Axis(title='Month')),
+    y=alt.Y('0:Q', axis=alt.Axis(title='USD'))
     )
     st.altair_chart(chart, use_container_width=True)
     #st.write(chart)
