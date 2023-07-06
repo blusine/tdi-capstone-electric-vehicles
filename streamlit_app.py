@@ -320,7 +320,8 @@ if selected_city and selected_vehicle:
     st.write(
     f"{df}"
     ) 
-     
+    
+    plt.figure(figsize=(15, 10))
     plt.plot(pd.DataFrame(monthly_dollars))
     plt.xlabel('Month')
     plt.ylabel('Monthly Cost')
