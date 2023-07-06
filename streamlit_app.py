@@ -1,18 +1,18 @@
 import pandas as pd
-pd.options.display.float_format = '{:.2f}'.format
+#pd.options.display.float_format = '{:.2f}'.format
 import numpy as np
 from streamlit_folium import st_folium, folium_static
 import altair as alt
 import folium
 import branca
-from geopy.geocoders import Nominatim
+#from geopy.geocoders import Nominatim
 import streamlit as st
 #from PIL import Image
 from datetime import datetime
-import requests
+#import requests
 import boto3
 import json
-import jinja2
+#import jinja2
 import pmdarima
 #import plost
 #import matplotlib.pyplot as plt
@@ -115,7 +115,7 @@ vehicle_choices.insert(0, "Select a Vehicle")
 with st.sidebar.form(key="my_form"):
     selected_city = st.selectbox("Choose a City", city_choices)
     #selected_vehicle = st.selectbox("Choose a Vehicle", vehicle_choices)
-    selected_vehicle = st.multiselect("Choose a Vehicle", vehicle_choices, max_selections = 4)
+    selected_vehicle = st.multiselect("Choose a Vehicle", vehicle_choices, max_selections = 4, default  = "Select a Vehicle")
     
     selected_miles = st.number_input(
         """Select Miles You Estimate to Drive Annually""",
@@ -257,22 +257,16 @@ def fancy_html(city_state, total_dollars):
 
 if not selected_city:
     location=[city_data[10]['Latitude'], city_data[10]['Longitude']] # Denver seems to be close to the center of the US map
-    #currency = ' '
     color = 'blue'
 else:
     location=[selected_city[0]['Latitude'], selected_city[0]['Longitude']]   
-map_obj = folium.Map(location=location, zoom_start=3)
+map_obj = folium.Map(location=location, zoom_start=4)
 
 for city in city_data:
     if selected_vehicle:
-        #currency = []
         
         for vehicle in selected_vehicle:
-            #tmp_currency = "${:,.2f}".format(city['cost'][(vehicle['make'], vehicle['model'])])
             city['cost'][(vehicle['make'], vehicle['model'])] = "${:,.2f}".format(city['cost'][(vehicle['make'], vehicle['model'])])
-            #currency.append(tmp_currency)
-    #else:
-        #currency = ' '
         
     if selected_city:
         if city['city_state'] == selected_city[0]['city_state']:
