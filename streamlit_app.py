@@ -232,8 +232,7 @@ def fancy_html(city_state, total_dollars):
             
             tbrow = """
                <tr>
-                <td style="background-color: """+ left_col_colour +"""
-                ;"><span style="color: #ffffff;">{}""" + .format(key) """</span></td>
+                <td style="background-color: """+ left_col_colour +""";"><span style="color: #ffffff;">{}""".format(key) + """</span></td>
                 <td style="width: 200px;background-color: """+ right_col_colour +""";">{}</td>""".format(value) + """
               </tr>
             """
