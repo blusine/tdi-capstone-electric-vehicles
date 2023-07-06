@@ -277,5 +277,6 @@ if selected_city and selected_vehicle:
     st.altair_chart(chart, use_container_width=True)
     #st.write(chart)
     
-    image_url = 'https://ev-database.org/img/common/EVDB-Logo-EN.svg'
+    image_url = 'https://ev-database.org/img/auto/Tesla_Model_Y/Tesla_Model_Y-01-thumb@2x.jpg'
+
     st.image(image_url)
