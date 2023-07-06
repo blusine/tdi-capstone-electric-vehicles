@@ -237,6 +237,9 @@ map_obj = folium.Map(location=location, zoom_start=5)
 for city in city_data:
     if selected_vehicle:
         currency = "${:,.2f}".format(city['cost'])
+    else:
+        currency = ' '
+        
     if selected_city:
         if city['city_state'] == selected_city[0]['city_state']:
             color = 'red'        
