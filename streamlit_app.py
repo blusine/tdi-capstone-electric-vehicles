@@ -261,8 +261,7 @@ if selected_city and selected_vehicle:
     x=alt.X('index:Q', axis=alt.Axis(title='Month')),
     y=alt.Y('0:Q', axis=alt.Axis(title='USD'))
     ).properties(
-    width='container',
-    height=150
+    width='container'
 ).properties(
     title={
         "text": title,
