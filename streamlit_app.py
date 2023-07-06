@@ -246,10 +246,11 @@ def fancy_html(city_state, total_dollars):
     </head>
     
      <table style="height: 126px; width: 300px;">
-      <tbody> """
-+       
+      <tbody> """ +       
+        
         table_rows_with_cost +
-"""        
+        
+        """        
       </tbody>
      </table>
     </html>
