@@ -247,7 +247,10 @@ if selected_city and selected_vehicle:
     df.reset_index(level=0, inplace=True)
     #df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
     
-    chart = alt.Chart(df).mark_line().encode(
+    # Chart title
+    title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
+    
+    chart = alt.Chart(df, title = title).mark_line().encode(
     x='index:Q',
     y='0:Q'
     )
@@ -263,7 +266,7 @@ if selected_city and selected_vehicle:
     plt.plot(df)
     plt.xlabel('Month')
     plt.ylabel('Monthly Cost, USD')
-    title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
+
     plt.title(title, fontdict=font_properties)
     
     # Display the chart
