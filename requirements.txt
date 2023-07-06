@@ -16,3 +16,4 @@ pmdarima
 plost
 matplotlib
 plotly
+plotly.express
