@@ -306,14 +306,14 @@ folium_static(map_obj)
 # Draw a chart with monthly estimated costs
 if selected_city and selected_vehicle:
     df = pd.DataFrame(monthly_dollars)  
-    df.reset_index(level=0, inplace=True)
-    df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
+    #df.reset_index(level=0, inplace=True)
+    #df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
     
     with st.echo():
         plost.line_chart(
-          data = df,
-          x='Month',  # The name of the column to use for the x axis.
-          y='Cost',  # The name of the column to use for the data itself.
+          data = df
+          #x='Month',  # The name of the column to use for the x axis.
+          #y='Cost',  # The name of the column to use for the data itself.
           #color='stock_name', # The name of the column to use for the line colors.
         )
 
