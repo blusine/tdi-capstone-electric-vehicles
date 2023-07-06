@@ -252,12 +252,12 @@ if selected_city and selected_vehicle:
     f"{df}"
     ) 
     
-    plt.figure(figsize=(10, 8))
     plt.plot(pd.DataFrame(monthly_dollars))
     plt.xlabel('Month')
     plt.ylabel('Monthly Cost, USD')
     title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
     plt.title(title)
+    plt.figure(figsize=(6, 4))
 
     # Display the chart
     st.pyplot(plt)
