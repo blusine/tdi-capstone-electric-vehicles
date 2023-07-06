@@ -105,9 +105,9 @@ for vehicle in vehicle_data1:
     vehicle_data.append(vehicle)
     
     
-st.write(
-    f"{vehicle_data} "
-    )
+#st.write(
+#    f"{vehicle_data} "
+#    )
 
 city_choices = list(city["city_state"] for city in city_data)
 city_choices.insert(0, "Select a City")
