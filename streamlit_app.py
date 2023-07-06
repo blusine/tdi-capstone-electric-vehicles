@@ -142,7 +142,9 @@ for i in selected_vehicle:
         f"{i} "
         )
 
-selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_option[0]) and (vehicle["model"] == selected_option[1] for selected_option in selected_vehicle)]
+#selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_option[0]) and (vehicle["model"] == selected_option[1] for selected_option in selected_vehicle)]
+
+selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle['make'], vehicle['model']) in selected_vehicle]
 
 if selected_vehicle:
     with st.expander("Expand to See the Selected Vehicle Information"):
