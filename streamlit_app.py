@@ -331,10 +331,11 @@ if selected_city and selected_vehicle:
     # Display the chart in Streamlit
     st.pyplot(plt)
     
-    alt.Chart(pd.DataFrame(monthly_dollars).reset_index()).mark_line().encode(
+    chart = alt.Chart(pd.DataFrame(monthly_dollars).reset_index()).mark_line().encode(
     x='index:T',
     y='value:Q'
     )
+    st.altair_chart(chart, use_container_width=True)
     
     fig = px.line(df, x='index', y='0', hover_data=['Tooltip'])
     #fig = px.line(df, x='Month', y='Cost', hover_data=['Tooltip'])
