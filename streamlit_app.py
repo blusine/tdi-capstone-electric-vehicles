@@ -115,7 +115,8 @@ vehicle_choices.insert(0, "Select a Vehicle")
 with st.sidebar.form(key="my_form"):
     selected_city = st.selectbox("Choose a City", city_choices)
     #selected_vehicle = st.selectbox("Choose a Vehicle", vehicle_choices)
-    selected_vehicle = st.multiselect("Choose a Vehicle", vehicle_choices)
+    selected_vehicle = st.multiselect("Choose a Vehicle", vehicle_choices, max_selections = 3)
+    
     selected_miles = st.number_input(
         """Select Miles You Estimate to Drive Annually""",
         value=12000,
@@ -135,6 +136,11 @@ expander.write(
 Electric vehicles have gained a lot of popularity in recent years due to their eco-friendliness, low emissions, and reduced reliance on fossil fuels. However, one of the most important factors that determine the feasibility and affordability of electric vehicles is their energy costs. This app estimates energy costs of electric vehicles using factors such as **vehicle make/model, battery capacities, travel distances and local electricity prices.** It extracts historical electricity prices from bls.gov and predicts the future prices with time series analysis. Then it uses the predicted prices and vehicle battery information to estimate the charging costs.
 """
 )
+
+st.write(
+    f"{selected_vehicle} "
+    )
+
 selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_vehicle[0]) and (vehicle["model"] == selected_vehicle[1])]
 
 if selected_vehicle:
