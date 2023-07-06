@@ -245,7 +245,7 @@ folium_static(map_obj)
 if selected_city and selected_vehicle:
     df = pd.DataFrame(monthly_dollars)  
     df.reset_index(level=0, inplace=True)
-    df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
+    #df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
     
     chart = alt.Chart(df).mark_line().encode(
     x='index:Q',
