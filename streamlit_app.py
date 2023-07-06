@@ -262,7 +262,7 @@ if selected_city and selected_vehicle:
     #alt.X('index').axis().title('Month'),
     #alt.Y('0').axis(format='$').title('USD')
     
-    x=alt.X('index:Q', axis=alt.Axis(title='Month')),
+    x=alt.X('Month:Q', axis=alt.Axis(title='Month')),
     y=alt.Y('Cost:Q', axis=alt.Axis(title='Monthly Cost, USD'))
     ).properties(
     width='container'
