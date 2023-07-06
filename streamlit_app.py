@@ -52,8 +52,9 @@ st.markdown(
 - Select the vehicle you are interested in from the drop down list
 - Select the expected annual miles you intend to drive
 - Select the number of years you intend to use the vehicle
-- Color of icon: red: for the selected city, blue: for the non-selected city
-- Click on the icon will pop up a display with the total cost for that city
+- Colors of the map markers: red: for the selected city, blue: for the non-selected city
+- A click on a marker will pop up a display with the total cost for that city and the selected vehicle.
+- The chart in the bottom shows monthly costs for the selected city and vehicle. 
 """
 )
 
@@ -131,7 +132,7 @@ with st.sidebar.form(key="my_form"):
 expander = st.sidebar.expander("What is this project about?")
 expander.write(
     """
-Electric vehicles have gained a lot of popularity in recent years due to their eco-friendliness, low emissions, and reduced reliance on fossil fuels. However, one of the most important factors that determine the feasibility and affordability of electric vehicles is their energy costs. This app estimates energy costs of electric vehicles using factors such as **vehicle make/model, battery capacities, travel distances and local electricity prices.**
+Electric vehicles have gained a lot of popularity in recent years due to their eco-friendliness, low emissions, and reduced reliance on fossil fuels. However, one of the most important factors that determine the feasibility and affordability of electric vehicles is their energy costs. This app estimates energy costs of electric vehicles using factors such as **vehicle make/model, battery capacities, travel distances and local electricity prices.** It extracts historical electricity prices from bls.gov and predicts the future prices with time series analysis. Then it uses the predicted prices and vehicle battery information to estimate the charging costs.
 """
 )
 selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_vehicle[0]) and (vehicle["model"] == selected_vehicle[1])]
@@ -140,7 +141,7 @@ if selected_vehicle:
     with st.expander("Expand to See the Selected Vehicle Information"):
         vdf = pd.DataFrame(selected_vehicle)
         # Iterate over the DataFrame rows and show images
-        col1, col2 = st.columns([1, 15])
+        col1, col2 = st.columns([1, 13])
         with col1:
             st.markdown('###### :green[Image]')
         for index, row in vdf.iterrows():
@@ -189,8 +190,6 @@ if selected_vehicle:
     # strip the 'km' from vehicle driving range to keep the number only
     driving_range = float(selected_vehicle[0]['erange_real'][:-3])
     
-    #forecasts = {}
-    #monthly_dollars = {}
     for city in city_data:
         city['forecasts'] = predict_KWH(city['city'], selected_years*12)
         city['monthly_dollars'] = calculate_KWH_costs(city['forecasts'], battery, driving_range, selected_miles)
