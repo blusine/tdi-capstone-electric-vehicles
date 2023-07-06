@@ -307,7 +307,7 @@ folium_static(map_obj)
 if selected_city and selected_vehicle:
     df = pd.DataFrame(monthly_dollars)  
     df.reset_index(level=0, inplace=True)
-    #df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
+    df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
     
     with st.echo():
         plost.line_chart(
@@ -330,7 +330,7 @@ if selected_city and selected_vehicle:
     # Display the chart in Streamlit
     st.pyplot(plt)
     
-    fig = px.line(df, x='index', y='0', hover_data=['Tooltip'])
+    fig = px.line(df, x='Month', y='Cost', hover_data=['Tooltip'])
 
     # Display the chart
     st.plotly_chart(fig)
