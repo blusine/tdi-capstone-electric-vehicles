@@ -265,15 +265,7 @@ if selected_city and selected_vehicle:
     x='index:Q',
     y='0:Q'
     )
-    #st.altair_chart(chart, use_container_width=True)
-    st.write(chart)
-    
-    with st.echo():
-        plost.line_chart(
-          data = df.reset_index(),
-          x='index',  # The name of the column to use for the x axis.
-          y= '0' ,  # The name of the column to use for the data itself.
-          #color='stock_name', # The name of the column to use for the line colors.
-        )
-
+    st.altair_chart(chart, use_container_width=True)
+    #st.write(chart)
+   
 
