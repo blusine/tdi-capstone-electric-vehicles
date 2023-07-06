@@ -225,24 +225,26 @@ def fancy_html(city_state, total_dollars):
                                             
     left_col_colour = "#B2DFDB"
     right_col_colour = "#E0F2F1"
-        
-    table_rows_with_cost = ""    
-    for row in total_dollars:
-        tbrow = """
-           <tr>
-            <td style="background-color: """+ left_col_colour +""";"><span style="color: #ffffff;">Total_Cost</span></td>
-            <td style="width: 200px;background-color: """+ right_col_colour +""";">{}</td>""".format(row) + """
-          </tr>
-        """
-        table_rows_with_cost = table_rows_with_cost + tbrow
+    
+    table_rows_with_cost = "" 
+    if len(total_dollars) > 0:
+        for key, value in total_dollars.items():
+            
+            tbrow = """
+               <tr>
+                <td style="background-color: """+ left_col_colour +"""
+                ;"><span style="color: #ffffff;">{}""" + .format(key) """</span></td>
+                <td style="width: 200px;background-color: """+ right_col_colour +""";">{}</td>""".format(value) + """
+              </tr>
+            """
+            table_rows_with_cost = table_rows_with_cost + tbrow
 
-    
-    
+   
     html = """<!DOCTYPE html>
     <html>
 
     <head>
-     <h4 style="margin-bottom:0"; width="300px">{}</h4>""".format(city_state) + """
+     <h4 style="margin-bottom:0"; width="300px">Total Cost for {}</h4>""".format(city_state) + """
     </head>
     
      <table style="height: 126px; width: 300px;">
@@ -255,21 +257,23 @@ def fancy_html(city_state, total_dollars):
     return html
 
 if not selected_city:
-    location=[city_data[0]['Latitude'], city_data[0]['Longitude']]
+    location=[city_data[10]['Latitude'], city_data[10]['Longitude']] # Denver seems to be close to the center of the US map
     #currency = ' '
     color = 'blue'
 else:
     location=[selected_city[0]['Latitude'], selected_city[0]['Longitude']]   
-map_obj = folium.Map(location=location, zoom_start=5)
+map_obj = folium.Map(location=location, zoom_start=3)
 
 for city in city_data:
     if selected_vehicle:
-        currency = []
+        #currency = []
+        
         for vehicle in selected_vehicle:
-            tmp_currency = "${:,.2f}".format(city['cost'][(vehicle['make'], vehicle['model'])])
-            currency.append(tmp_currency)
-    else:
-        currency = ' '
+            #tmp_currency = "${:,.2f}".format(city['cost'][(vehicle['make'], vehicle['model'])])
+            city['cost'][(vehicle['make'], vehicle['model'])] = "${:,.2f}".format(city['cost'][(vehicle['make'], vehicle['model'])])
+            #currency.append(tmp_currency)
+    #else:
+        #currency = ' '
         
     if selected_city:
         if city['city_state'] == selected_city[0]['city_state']:
@@ -277,7 +281,7 @@ for city in city_data:
         else:
             color = 'blue'
     
-    html = fancy_html(city['city_state'], currency)
+    html = fancy_html(city['city_state'], city['cost'])
     iframe = branca.element.IFrame(html=html,width=300,height=280)
     popup = folium.Popup(iframe,parse_html=True)
     
