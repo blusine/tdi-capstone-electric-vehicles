@@ -304,10 +304,9 @@ folium_static(map_obj)
 
 # Draw a chart with monthly estimated costs
 if selected_city and selected_vehicle:
-    column_names = ['Month', 'Estimated Cost']
     df = pd.DataFrame(monthly_dollars)  
     df.reset_index(level=0, inplace=True)
-    df.rename(columns = {'index': 'Period', '0': 'Cost'}, inplace = True)
+    df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
     
     with st.echo():
         plost.line_chart(
@@ -317,7 +316,7 @@ if selected_city and selected_vehicle:
           #color='stock_name', # The name of the column to use for the line colors.
         )
  
-    plt.plot(df['Month'], df['Estimated Cost'])
+    plt.plot(df['Month'], df['Cost'])
     plt.title('Sine Wave')
     plt.xlabel('Month')
     ylabel = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
