@@ -138,12 +138,11 @@ Electric vehicles have gained a lot of popularity in recent years due to their e
 )
 
 for i in selected_vehicle:
-    printv = selected_vehicle[i]
     st.write(
-        f"{printv} "
+        f"{i} "
         )
 
-selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_vehicle[i][0]) and (vehicle["model"] == selected_vehicle[i][1] for i in selected_vehicle)]
+selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_option[0]) and (vehicle["model"] == selected_option[1] for selected_option in selected_vehicle)]
 
 if selected_vehicle:
     with st.expander("Expand to See the Selected Vehicle Information"):
