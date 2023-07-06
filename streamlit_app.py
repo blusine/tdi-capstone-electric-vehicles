@@ -254,8 +254,12 @@ if selected_city and selected_vehicle:
     title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
     plt.title(title)
     
-
     # Display the chart
     st.pyplot(plt)
 
+    chart = alt.Chart(df).mark_line().encode(
+    x='index:Q',
+    y='value:Q'
+    )
+    st.altair_chart(chart, use_container_width=True)
 
