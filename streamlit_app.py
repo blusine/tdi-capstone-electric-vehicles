@@ -141,7 +141,7 @@ st.write(
     f"{selected_vehicle} "
     )
 
-selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_vehicle[0]) and (vehicle["model"] == selected_vehicle[1])]
+selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_vehicle[i][0]) and (vehicle["model"] == selected_vehicle[i][1] for i in selected_vehicle)]
 
 if selected_vehicle:
     with st.expander("Expand to See the Selected Vehicle Information"):
