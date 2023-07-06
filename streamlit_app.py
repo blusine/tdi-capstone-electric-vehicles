@@ -20,6 +20,7 @@ import jinja2
 import pmdarima
 import plost
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 import utility_functions
 
@@ -328,4 +329,9 @@ if selected_city and selected_vehicle:
 
     # Display the chart in Streamlit
     st.pyplot(plt)
+    
+    fig = px.line(df, x='index', y='0', hover_data=['Tooltip'])
+
+    # Display the chart
+    st.plotly_chart(fig)
 
