@@ -183,17 +183,19 @@ def calculate_KWH_costs(forecasts, battery, driving_range, selected_miles):
     monthly_dollars = monthly_KWH * forecasts
     return monthly_dollars
 
-if selected_city:
-    forecasts = predict_KWH(selected_city[0]['city'], selected_years*12)
-
-if selected_vehicle and selected_city:
+if selected_vehicle:
     # battery is the battery capacity in KWH of the vehicle
     battery = selected_vehicle[0]['battery']
     # strip the 'km' from vehicle driving range to keep the number only
     driving_range = float(selected_vehicle[0]['erange_real'][:-3])
-    monthly_dollars = calculate_KWH_costs(forecasts, battery, driving_range, selected_miles)
-    selected_city[0]['cost'] = sum(monthly_dollars)
-
+    
+    #forecasts = {}
+    #monthly_dollars = {}
+    for city in city_data:
+        city['forecasts'] = predict_KWH(city['city'], selected_years*12)
+        city['monthly_dollars'] = calculate_KWH_costs(city['forecasts'], battery, driving_range, selected_miles)
+        city['cost'] = sum(city['monthly_dollars'])
+    
 # Render a map
 # credit to https://www.kaggle.com/code/dabaker/fancy-folium
 def fancy_html(city_state, total_dollars):
@@ -227,22 +229,19 @@ def fancy_html(city_state, total_dollars):
 
 if not selected_city:
     location=[city_data[0]['Latitude'], city_data[0]['Longitude']]
-    currency = ' '
+    #currency = ' '
     color = 'blue'
 else:
     location=[selected_city[0]['Latitude'], selected_city[0]['Longitude']]   
 map_obj = folium.Map(location=location, zoom_start=5)
-    
+
 for city in city_data:
+    if selected_vehicle:
+        currency = "${:,.2f}".format(city['cost'])
     if selected_city:
         if city['city_state'] == selected_city[0]['city_state']:
-            if selected_vehicle:
-                currency = "${:,.2f}".format(city['cost'])
-            else:
-                currency = city['cost']
             color = 'red'        
         else:
-            currency = city['cost']
             color = 'blue'
     
     html = fancy_html(city['city_state'], currency)
@@ -262,7 +261,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 # Draw a chart with monthly estimated costs
 if selected_city and selected_vehicle:
-    df = pd.DataFrame(monthly_dollars, columns=['Cost'])  
+    df = pd.DataFrame(selected_city[0]['monthly_dollars'], columns=['Cost'])  
     df.reset_index(level=0, inplace=True)
     df.rename(columns = {'index': 'Month'}, inplace = True)
     
