@@ -240,6 +240,8 @@ for city in city_data:
 
 #st_folium(map_obj, width=725) #too interactive for this application
 folium_static(map_obj)
+# Add space between the map and the next object
+st.markdown("<br>", unsafe_allow_html=True)
 
 # Draw a chart with monthly estimated costs
 if selected_city and selected_vehicle:
@@ -252,7 +254,9 @@ if selected_city and selected_vehicle:
     
     chart = alt.Chart(df, title = title).mark_line().encode(
     x='index:Q',
-    y='0:Q'
+    y='0:Q',
+    alt.X('index').axis().title('Month'),
+    alt.Y('0').axis(format='$').title('USD')
     )
     st.altair_chart(chart, use_container_width=True)
     #st.write(chart)
