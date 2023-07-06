@@ -223,17 +223,18 @@ def fancy_html(city_state, total_dollars):
     Name = city_state
     Total_Cost = total_dollars
                                             
-    left_col_colour = "#2A799C"
-    right_col_colour = "#C5DCE7"
+    left_col_colour = "#B2DFDB"
+    right_col_colour = "#E0F2F1"
         
     table_rows_with_cost = ""    
     for row in total_dollars:
-        table_rows_with_cost = table_rows_with_cost.join("""
+        tbrow = """
            <tr>
             <td style="background-color: """+ left_col_colour +""";"><span style="color: #ffffff;">Total_Cost</span></td>
             <td style="width: 200px;background-color: """+ right_col_colour +""";">{}</td>""".format(row) + """
           </tr>
-        """)
+        """
+        table_rows_with_cost = table_rows_with_cost + tbrow
 
     
     
@@ -246,7 +247,9 @@ def fancy_html(city_state, total_dollars):
     
      <table style="height: 126px; width: 300px;">
       <tbody>
+      
         {table_rows_with_cost}
+        
       </tbody>
      </table>
     </html>
