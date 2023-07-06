@@ -245,9 +245,9 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 # Draw a chart with monthly estimated costs
 if selected_city and selected_vehicle:
-    df = pd.DataFrame(monthly_dollars)  
+    df = pd.DataFrame(monthly_dollars, columns=['Cost'])  
     df.reset_index(level=0, inplace=True)
-    df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
+    df.rename(columns = {'index': 'Month'}, inplace = True)
     
     # Chart title
     title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
