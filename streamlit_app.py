@@ -6,12 +6,8 @@ import altair as alt
 import folium
 import branca
 from geopy.geocoders import Nominatim
-#import config
 import streamlit as st
 from PIL import Image
-# from streamlit_extras.add_vertical_space import add_vertical_space
-#from st_aggrid import AgGrid, GridOptionsBuilder
-#from st_aggrid.shared import GridUpdateMode
 from datetime import datetime
 import requests
 import boto3
@@ -22,17 +18,6 @@ import plost
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-import utility_functions
-
-# Load API keys from JSON file
-#with open('config.json') as file:
-#    config = json.load(file)
-
-# Access the API keys
-#aws_access_key_id = config['aws_access_key_id']
-#aws_secret_access_key = config['aws_secret_access_key']
-
-# change this for running streamlit on cloud
 aws_access_key_id = st.secrets["AWS_ACCESS_KEY_ID"]
 aws_secret_access_key = st.secrets["AWS_SECRET_ACCESS_KEY"]
 
@@ -48,7 +33,6 @@ def remote_css(url):
 def icon(icon_name):
     st.markdown(f'<i class="material-icons">{icon_name}</i>', unsafe_allow_html=True)
 
-#local_css("style.css")
 remote_css('https://fonts.googleapis.com/icon?family=Material+Icons')
 
 # Create two columns to save space vertically
@@ -58,7 +42,6 @@ with col1:
 with col2:
     st.markdown('##### :green[Directions]')
     
-
 #markdown
 #st.markdown("""
 #    Electric vehicles have gained a lot of popularity in recent years due to their eco-friendliness, low emissions, and reduced reliance on #fossil fuels. However, one of the most important factors that determine the feasibility and affordability of electric vehicles is their #energy costs. This project predicts energy costs of electric vehicles using factors such as vehicle make/model, its battery capacities, #travel distances and local electricity prices.
@@ -117,34 +100,15 @@ for vehicle in vehicle_data1:
     vehicle = json.loads(vehicle)
     vehicle_data.append(vehicle)
 
-#city_coordinates = list(city['geoloc'] for city in city_data)
-
 city_choices = list(city["city_state"] for city in city_data)
 city_choices.insert(0, "Select a City")
-#vehicle_choices = list(zip(vehicle_data['make'], vehicle_data['model']))
+
 vehicle_choices = [(vehicle['make'], vehicle['model']) for vehicle in vehicle_data]                    
 vehicle_choices.insert(0, "Select a Vehicle")
-
-#"""
-#vehicle_choices = list(df_vehicles['make'].unique())
-#vehicle_choices.insert(0, "Select a Make")
-##current_models = list(df_vehicles[df_vehicles['make'] == vehicle_choices]['model'].unique())
-#model_choices = list(df_vehicles['model'].unique())
-#model_choices.insert(0, "Select a Make First")
-#"""
 
 with st.sidebar.form(key="my_form"):
     selected_city = st.selectbox("Choose a City", city_choices)
     selected_vehicle = st.selectbox("Choose a Vehicle", vehicle_choices)
-    
-    #"""
-    #if selectbox_vehicle == 'Select a Make':
-    #    pass
-    #    #selectbox_model = st.selectbox("Choose a Vehicle Model", "Select a Make First")
-    #else:        
-    #    current_models = dict_vehicles[selectbox_vehicle]
-    #    selectbox_model = st.selectbox("Choose a Vehicle Model", current_models)
-    #"""
     
     selected_miles = st.number_input(
         """Select Miles You Estimate to Drive Annually""",
@@ -159,7 +123,7 @@ with st.sidebar.form(key="my_form"):
 
     pressed = st.form_submit_button("Estimate Vehicle Costs")
 
-expander = st.sidebar.expander("What is the project about?")
+expander = st.sidebar.expander("What is this project about?")
 expander.write(
     """
 Electric vehicles have gained a lot of popularity in recent years due to their eco-friendliness, low emissions, and reduced reliance on fossil fuels. However, one of the most important factors that determine the feasibility and affordability of electric vehicles is their energy costs. This app estimates energy costs of electric vehicles using factors such as **vehicle make/model, battery capacities, travel distances and local electricity prices.**
@@ -171,16 +135,6 @@ if selected_vehicle:
     st.write(
     f"{selected_vehicle[0]} "
     )
-
-selected_city = [city for city in city_data if city["city_state"] == selected_city]
-if selected_city:
-    st.write(
-    f"{selected_city[0]}"
-    )
-
-st.write(
-f"{selected_miles, selected_years}"
-)
 
 def predict_KWH(city, n_periods):
     """ this function predicts $ prices for a consumer per KWH of electricity purchased in a given city
@@ -214,10 +168,7 @@ def calculate_KWH_costs(forecasts, battery, driving_range, selected_miles):
 
 if selected_city:
     forecasts = predict_KWH(selected_city[0]['city'], selected_years*12)
-    st.write(
-    f"{forecasts}"
-    )
-    
+
 if selected_vehicle and selected_city:
     # battery is the battery capacity in KWH of the vehicle
     battery = selected_vehicle[0]['battery']
@@ -225,18 +176,6 @@ if selected_vehicle and selected_city:
     driving_range = float(selected_vehicle[0]['erange_real'][:-3])
     monthly_dollars = calculate_KWH_costs(forecasts, battery, driving_range, selected_miles)
     selected_city[0]['cost'] = sum(monthly_dollars)
-    
-    st.write(
-    f"{monthly_dollars}"
-    )
-    
-    st.write(
-    f"{type(monthly_dollars)}"
-    )
-    st.write(
-    f"{selected_city[0]['cost']}"
-    )
-
 
 # Render a map
 # credit to https://www.kaggle.com/code/dabaker/fancy-folium
@@ -269,7 +208,6 @@ def fancy_html(city_state, total_dollars):
     """
     return html
 
-#st.write(f"{city_data}")
 if not selected_city:
     location=[city_data[0]['Latitude'], city_data[0]['Longitude']]
     currency = ' '
@@ -299,23 +237,15 @@ for city in city_data:
           popup=popup,
           icon=folium.Icon(color=color, icon='info-sign'),
           tooltip=city['city_state']).add_to(map_obj)
-    
+
 #st_folium(map_obj, width=725) #too interactive for this application
 folium_static(map_obj)
 
 # Draw a chart with monthly estimated costs
 if selected_city and selected_vehicle:
     df = pd.DataFrame(monthly_dollars)  
-    df.reset_index(level=0, inplace=True)
+    #df.reset_index(level=0, inplace=True)
     #df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
-    
-    with st.echo():
-        plost.line_chart(
-          data = df,
-          x='index',  # The name of the column to use for the x axis.
-          y='0',  # The name of the column to use for the data itself.
-          #color='stock_name', # The name of the column to use for the line colors.
-        )
 
     st.write(
     f"{df}"
@@ -328,17 +258,7 @@ if selected_city and selected_vehicle:
     title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
     plt.title(title)
 
-    # Display the chart in Streamlit
-    st.pyplot(plt)
-    
-    chart = alt.Chart(pd.DataFrame(monthly_dollars).reset_index()).mark_line().encode(
-    x='index:T',
-    y='value:Q'
-    )
-    st.altair_chart(chart, use_container_width=True)
-    
-    fig = px.line(df, x='index', y='0', hover_data=['Tooltip'])
-    #fig = px.line(df, x='Month', y='Cost', hover_data=['Tooltip'])
     # Display the chart
-    st.plotly_chart(fig)
+    st.pyplot(plt)
+
 
