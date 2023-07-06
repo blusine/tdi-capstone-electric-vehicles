@@ -244,9 +244,17 @@ folium_static(map_obj)
 # Draw a chart with monthly estimated costs
 if selected_city and selected_vehicle:
     df = pd.DataFrame(monthly_dollars)  
-    #df.reset_index(level=0, inplace=True)
-    #df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
+    df.reset_index(level=0, inplace=True)
+    df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
     
+    chart = alt.Chart(df).mark_line().encode(
+    x='index:Q',
+    y='Cost:Q'
+    )
+    st.altair_chart(chart, use_container_width=True)
+    #st.write(chart)
+   
+
     font_properties = {
     'family': 'arial',
     'size': 12
@@ -261,11 +269,4 @@ if selected_city and selected_vehicle:
     # Display the chart
     st.pyplot(plt)
 
-    chart = alt.Chart(df.reset_index()).mark_line().encode(
-    x='index:Q',
-    y='0:Q'
-    )
-    st.altair_chart(chart, use_container_width=True)
-    #st.write(chart)
-   
 
