@@ -138,14 +138,16 @@ selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == s
 
 if selected_vehicle:
     with st.expander("Expand to See the Selected Vehicle Information"):
-        st.write()
-    vdf = pd.DataFrame(selected_vehicle)
-    # Iterate over the DataFrame rows and show images
-    for index, row in vdf.iterrows():
-        image_url = row['img1_url']
-        # Display the image and other information
-        st.image(image_url, caption=f"Image {index+1}")
-        st.write(row)
+        vdf = pd.DataFrame(selected_vehicle)
+        # Iterate over the DataFrame rows and show images
+        for index, row in vdf.iterrows():
+            image_url = row['img1_url']
+            # Display the image and other information
+            col1, col2 = st.columns([1, 15])
+            with col1:
+                st.image(image_url, caption=f"Image {index+1}")
+            with col2:
+                st.write(row)
 
     
 selected_city = [city for city in city_data if city["city_state"] == selected_city]
