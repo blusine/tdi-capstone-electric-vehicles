@@ -253,10 +253,13 @@ if selected_city and selected_vehicle:
     title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
     
     chart = alt.Chart(df, title = title).mark_line().encode(
-    x='index:Q',
-    y='0:Q',
-    alt.X('index').axis().title('Month'),
-    alt.Y('0').axis(format='$').title('USD')
+    #x='index:Q',
+    #y='0:Q',
+    #alt.X('index').axis().title('Month'),
+    #alt.Y('0').axis(format='$').title('USD')
+    
+    x=alt.X('index', axis=alt.Axis(title='Month')),
+    y=alt.Y('0', axis=alt.Axis(title='USD'))
     )
     st.altair_chart(chart, use_container_width=True)
     #st.write(chart)
