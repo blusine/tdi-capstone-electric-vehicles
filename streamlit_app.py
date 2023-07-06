@@ -146,7 +146,6 @@ def predict_KWH(city, n_periods):
     y_m = str(current_year) + "_" +  current_month
     filepath = "models/"
     pkl_filename = filepath + 'pmdarima_model_' + city + y_m + '.pkl'
-    st.write(f"{pkl_filename}")
     pkl_model = load_data(pkl_filename)
     forecasts = pkl_model.predict(n_periods=n_periods)
     return forecasts
@@ -247,17 +246,14 @@ if selected_city and selected_vehicle:
     df = pd.DataFrame(monthly_dollars)  
     #df.reset_index(level=0, inplace=True)
     #df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
-
-    st.write(
-    f"{df}"
-    ) 
     
-    plt.plot(pd.DataFrame(monthly_dollars))
+    plt.figure(figsize=(6, 4))
+    plt.plot(df)
     plt.xlabel('Month')
     plt.ylabel('Monthly Cost, USD')
     title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
     plt.title(title)
-    plt.figure(figsize=(6, 4))
+    
 
     # Display the chart
     st.pyplot(plt)
