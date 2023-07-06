@@ -212,9 +212,9 @@ if selected_vehicle:
             city['forecasts'][(vehicle['make'], vehicle['model'])] = tmp_forecast
             city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
             city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
-            st.write(
-                f"{city} "
-              )
+            #st.write(
+            #    f"{city} "
+            #  )
     
 # Render a map
 # credit to https://www.kaggle.com/code/dabaker/fancy-folium
@@ -239,7 +239,7 @@ def fancy_html(city_state, total_dollars):
         
           <tr>
             <td style="background-color: """+ left_col_colour +""";"><span style="color: #ffffff;">Total_Cost</span></td>
-            <td style="width: 200px;background-color: """+ right_col_colour +""";">{}</td>""".format(row) + """
+            <td style="width: 200px;background-color: """+ right_col_colour +""";">{}</td>""".format({{row}}) + """
           </tr>
         {% endfor %}
       </tbody>
@@ -260,7 +260,8 @@ for city in city_data:
     if selected_vehicle:
         currency = []
         for vehicle in selected_vehicle:
-            currency.append("${:,.2f}".format(city['cost'][(vehicle['make'], vehicle['model'])]))
+            tmp_currency = "${:,.2f}".format(city['cost'][(vehicle['make'], vehicle['model'])])
+            currency.append(tmp_currency)
     else:
         currency = ' '
         
