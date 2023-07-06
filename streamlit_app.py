@@ -248,8 +248,7 @@ if selected_city and selected_vehicle:
     #df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
     
     font_properties = {
-    'family': 'serif',
-    'weight': 'bold',
+    'family': 'arial',
     'size': 12
     }
     plt.figure(figsize=(6, 4))
