@@ -88,9 +88,8 @@ city_data1 = city_data1.to_list()
 vehicle_data1 = load_data('data/electric_vehicles.csv')
 vehicle_data1 = vehicle_data1.apply(lambda x: json.dumps(x.to_dict(), ensure_ascii=False), axis=1)
 vehicle_data1 = vehicle_data1.to_list()
-    
-if selected_vehicle:
-    st.write(
+
+st.write(
     f"{vehicle_data1} "
     )
     
@@ -105,8 +104,8 @@ for vehicle in vehicle_data1:
     vehicle = json.loads(vehicle)
     vehicle_data.append(vehicle)
     
-if selected_vehicle:
-    st.write(
+    
+st.write(
     f"{vehicle_data} "
     )
 
