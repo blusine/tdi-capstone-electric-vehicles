@@ -320,7 +320,7 @@ if selected_city and selected_vehicle:
     f"{df}"
     ) 
      
-    plt.plot(df['index'], df['0'])
+    plt.plot(pd.DataFrame(monthly_dollars))
     plt.xlabel('Month')
     plt.ylabel('Monthly Cost')
     title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
