@@ -132,13 +132,8 @@ Electric vehicles have gained a lot of popularity in recent years due to their e
 selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_vehicle[0]) and (vehicle["model"] == selected_vehicle[1])]
 
 if selected_vehicle:
-    st.write(
-    f"{selected_vehicle[0]} "
-    )
-    
-with st.expander("Expand to see the selected vehicle information"):
-    #dataset_name = st.selectbox("Datasets", datasets)
-    st.write(pd.DataFrame(selected_vehicle))
+    with st.expander("Expand to See the Selected Vehicle Information"):
+        st.write(pd.DataFrame(selected_vehicle))
 
     
 selected_city = [city for city in city_data if city["city_state"] == selected_city]
