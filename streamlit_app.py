@@ -263,7 +263,7 @@ if selected_city and selected_vehicle:
 
     chart = alt.Chart(df.reset_index()).mark_line().encode(
     x='index:Q',
-    y='value:Q'
+    y='0:Q'
     )
     #st.altair_chart(chart, use_container_width=True)
     st.write(chart)
