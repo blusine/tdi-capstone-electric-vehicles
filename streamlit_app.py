@@ -7,16 +7,16 @@ import folium
 import branca
 from geopy.geocoders import Nominatim
 import streamlit as st
-from PIL import Image
+#from PIL import Image
 from datetime import datetime
 import requests
 import boto3
 import json
 import jinja2
 import pmdarima
-import plost
-import matplotlib.pyplot as plt
-import plotly.express as px
+#import plost
+#import matplotlib.pyplot as plt
+#import plotly.express as px
 
 aws_access_key_id = st.secrets["AWS_ACCESS_KEY_ID"]
 aws_secret_access_key = st.secrets["AWS_SECRET_ACCESS_KEY"]
@@ -212,7 +212,10 @@ if selected_vehicle:
             city['forecasts'][(vehicle['make'], vehicle['model'])] = tmp_forecast
             city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
             city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
-        
+            st.write(
+                f"{city} "
+              )
+    
 # Render a map
 # credit to https://www.kaggle.com/code/dabaker/fancy-folium
 def fancy_html(city_state, total_dollars):
@@ -227,17 +230,18 @@ def fancy_html(city_state, total_dollars):
     <html>
 
     <head>
-     <h4 style="margin-bottom:0"; width="300px">{}</h4>""".format(Name) + """
+     <h4 style="margin-bottom:0"; width="300px">{}</h4>""".format(city_state) + """
     </head>
     
      <table style="height: 126px; width: 300px;">
       <tbody>
-    
-        <tr>
-        <td style="background-color: """+ left_col_colour +""";"><span style="color: #ffffff;">Total_Cost</span></td>
-        <td style="width: 200px;background-color: """+ right_col_colour +""";">{}</td>""".format(Total_Cost) + """
-        </tr>
-
+        {% for row in total_dollars %}
+        
+          <tr>
+            <td style="background-color: """+ left_col_colour +""";"><span style="color: #ffffff;">Total_Cost</span></td>
+            <td style="width: 200px;background-color: """+ right_col_colour +""";">{}</td>""".format(row) + """
+          </tr>
+        {% endfor %}
       </tbody>
      </table>
     </html>
