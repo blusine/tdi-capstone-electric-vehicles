@@ -278,5 +278,8 @@ if selected_city and selected_vehicle:
     #st.write(chart)
     
     image_url = 'https://ev-database.org/img/auto/Tesla_Model_Y/Tesla_Model_Y-01-thumb@2x.jpg'
-
     st.image(image_url)
+    
+    image_url = 'https://ev-database.org/img/auto/Tesla_Model_Y/Tesla_Model_Y-01-thumb.jpg'
+    st.image(image_url)
+    
