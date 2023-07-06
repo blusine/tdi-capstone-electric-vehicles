@@ -227,7 +227,7 @@ def fancy_html(city_state, total_dollars):
     right_col_colour = "#E0F2F1"
     
     table_rows_with_cost = "" 
-    if len(total_dollars) > 0:
+    if isinstance(total_dollars, dict):
         for key, value in total_dollars.items():
             
             tbrow = """
