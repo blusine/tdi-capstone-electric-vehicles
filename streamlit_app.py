@@ -1,5 +1,5 @@
 import pandas as pd
-#pd.options.display.float_format = '{:.2f}'.format
+pd.options.display.float_format = '{:.2f}'.format
 import numpy as np
 from streamlit_folium import st_folium, folium_static
 import altair as alt
@@ -248,10 +248,6 @@ if selected_city and selected_vehicle:
     df = pd.DataFrame(monthly_dollars, columns=['Cost'])  
     df.reset_index(level=0, inplace=True)
     df.rename(columns = {'index': 'Month'}, inplace = True)
-    
-    st.write(
-    f"{df} "
-    )
     
     # Chart title
     title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
