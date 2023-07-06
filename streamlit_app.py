@@ -306,14 +306,14 @@ folium_static(map_obj)
 # Draw a chart with monthly estimated costs
 if selected_city and selected_vehicle:
     df = pd.DataFrame(monthly_dollars)  
-    #df.reset_index(level=0, inplace=True)
+    df.reset_index(level=0, inplace=True)
     #df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
     
     with st.echo():
         plost.line_chart(
           data = df
-          #x='Month',  # The name of the column to use for the x axis.
-          #y='Cost',  # The name of the column to use for the data itself.
+          x='index',  # The name of the column to use for the x axis.
+          y='0',  # The name of the column to use for the data itself.
           #color='stock_name', # The name of the column to use for the line colors.
         )
 
@@ -330,8 +330,8 @@ if selected_city and selected_vehicle:
     # Display the chart in Streamlit
     st.pyplot(plt)
     
-    fig = px.line(df, x='Month', y='Cost', hover_data=['Tooltip'])
-
+    fig = px.line(df, x='index', y='0', hover_data=['Tooltip'])
+    #fig = px.line(df, x='Month', y='Cost', hover_data=['Tooltip'])
     # Display the chart
     st.plotly_chart(fig)
 
