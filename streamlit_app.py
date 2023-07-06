@@ -247,7 +247,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 if selected_city and selected_vehicle:
     df = pd.DataFrame(monthly_dollars)  
     df.reset_index(level=0, inplace=True)
-    #df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
+    df.rename(columns = {'index': 'Month', '0': 'Cost'}, inplace = True)
     
     # Chart title
     title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
@@ -259,7 +259,7 @@ if selected_city and selected_vehicle:
     #alt.Y('0').axis(format='$').title('USD')
     
     x=alt.X('index:Q', axis=alt.Axis(title='Month')),
-    y=alt.Y('0:Q', axis=alt.Axis(title='USD'))
+    y=alt.Y('Cost:Q', axis=alt.Axis(title='Monthly Cost, USD'))
     ).properties(
     width='container'
 ).properties(
@@ -276,19 +276,5 @@ if selected_city and selected_vehicle:
     st.altair_chart(chart, use_container_width=True)
     #st.write(chart)
    
-
-    font_properties = {
-    'family': 'arial',
-    'size': 12
-    }
-    plt.figure(figsize=(6, 4))
-    plt.plot(df)
-    plt.xlabel('Month')
-    plt.ylabel('Monthly Cost, USD')
-
-    plt.title(title, fontdict=font_properties)
-    
-    # Display the chart
-    st.pyplot(plt)
 
 
