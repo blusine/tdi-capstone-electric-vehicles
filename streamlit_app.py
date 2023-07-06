@@ -321,15 +321,20 @@ if selected_city and selected_vehicle:
     f"{df}"
     ) 
     
-    plt.figure(figsize=(15, 10))
+    plt.figure(figsize=(10, 8))
     plt.plot(pd.DataFrame(monthly_dollars))
     plt.xlabel('Month')
-    plt.ylabel('Monthly Cost')
+    plt.ylabel('Monthly Cost, USD')
     title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
     plt.title(title)
 
     # Display the chart in Streamlit
     st.pyplot(plt)
+    
+    alt.Chart(pd.DataFrame(monthly_dollars).reset_index()).mark_line().encode(
+    x='index:T',
+    y='value:Q'
+    )
     
     fig = px.line(df, x='index', y='0', hover_data=['Tooltip'])
     #fig = px.line(df, x='Month', y='Cost', hover_data=['Tooltip'])
