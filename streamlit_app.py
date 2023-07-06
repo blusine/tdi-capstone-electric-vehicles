@@ -276,6 +276,6 @@ if selected_city and selected_vehicle:
 )
     st.altair_chart(chart, use_container_width=True)
     #st.write(chart)
-   
-
-
+    
+    image_url = 'https://ev-database.org/img/common/EVDB-Logo-EN.svg'
+    st.image(image_url)
