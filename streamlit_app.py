@@ -114,8 +114,8 @@ vehicle_choices.insert(0, "Select a Vehicle")
 
 with st.sidebar.form(key="my_form"):
     selected_city = st.selectbox("Choose a City", city_choices)
-    selected_vehicle = st.selectbox("Choose a Vehicle", vehicle_choices)
-    
+    #selected_vehicle = st.selectbox("Choose a Vehicle", vehicle_choices)
+    selected_vehicle = st.multiselect("Choose a Vehicle", vehicle_choices)
     selected_miles = st.number_input(
         """Select Miles You Estimate to Drive Annually""",
         value=12000,
