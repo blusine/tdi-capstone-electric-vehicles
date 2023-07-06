@@ -257,9 +257,11 @@ if selected_city and selected_vehicle:
     # Display the chart
     st.pyplot(plt)
 
-    chart = alt.Chart(df).mark_line().encode(
+    chart = alt.Chart(df.reset_index()).mark_line().encode(
     x='index:Q',
     y='value:Q'
     )
+ 
     st.altair_chart(chart, use_container_width=True)
+    chart.save("Capstone/altair_chart")
 
