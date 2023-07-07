@@ -194,28 +194,9 @@ def calculate_KWH_costs(forecasts, battery, driving_range, selected_miles):
     return monthly_dollars
 
 # Call the KWH functions for each selected vehicle and city
-if selected_vehicle:
-    for city in city_data:
-        city['forecasts'] = {}
-        city['monthly_dollars'] = {}
-        city['cost'] = {}
-        for vehicle in selected_vehicle:
-            # battery is the battery capacity in KWH of the vehicle
-            battery = vehicle['battery']
-            # strip the 'km' from vehicle driving range to keep the number only
-            driving_range = float(vehicle['erange_real'][:-3])
-        
-            tmp_forecast = predict_KWH(city['city'], selected_years*12)
-            tmp_dollars = calculate_KWH_costs(tmp_forecast, battery, driving_range, selected_miles)
-            tmp_cost = sum(tmp_dollars)
-            
-            city['forecasts'][(vehicle['make'], vehicle['model'])] = tmp_forecast
-            city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
-            city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
-            #st.write(
-            #    f"{city} "
-            #  )
-    
+for city in city_data:
+    city['forecasts'] = predict_KWH(city['city'], selected_years*12)
+
 # Render a map
 # credit to https://www.kaggle.com/code/dabaker/fancy-folium
 def fancy_html(city_state, total_dollars):
@@ -229,10 +210,11 @@ def fancy_html(city_state, total_dollars):
     table_rows_with_cost = "" 
     if isinstance(total_dollars, dict):
         for key, value in total_dollars.items():
+            make_model = str(key[0]) + ", " + str(key[1])
             
             tbrow = """
                <tr>
-                <td style="background-color: """+ left_col_colour +""";"><span style="color: #ffffff;">{}""".format(key) + """</span></td>
+                <td style="background-color: """+ left_col_colour +""";"><span style="color: #ffffff;">{}""".format(make_model) + """</span></td>
                 <td style="width: 200px;background-color: """+ right_col_colour +""";">{}</td>""".format(value) + """
               </tr>
             """
@@ -256,7 +238,13 @@ def fancy_html(city_state, total_dollars):
     return html
 
 if not selected_city:
-    location=[city_data[10]['Latitude'], city_data[10]['Longitude']] # Denver seems to be close to the center of the US map
+    # Calculate mean latitudes and longitudes
+    latitudes = [item['Latitude'] for item in city_data]
+    longitudes = [item['Longitude'] for item in city_data]
+    mean_latitude = np.mean(latitudes)
+    mean_longitude = np.mean(longitudes)
+
+    location=[mean_latitude, mean_longitude] 
     color = 'blue'
 else:
     location=[selected_city[0]['Latitude'], selected_city[0]['Longitude']]   
@@ -289,6 +277,27 @@ folium_static(map_obj)
 # Add space between the map and the next object
 st.markdown("<br>", unsafe_allow_html=True)
 
+  
+if selected_vehicle:
+    for city in city_data:
+        city['forecasts'] = {}
+        city['monthly_dollars'] = {}
+        city['cost'] = {}
+        for vehicle in selected_vehicle:
+            # battery is the battery capacity in KWH of the vehicle
+            battery = vehicle['battery']
+            # strip the 'km' from vehicle driving range to keep the number only
+            driving_range = float(vehicle['erange_real'][:-3])
+            
+            tmp_dollars = calculate_KWH_costs(city['forecasts'], battery, driving_range, selected_miles)
+            tmp_cost = sum(tmp_dollars)
+            
+            city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
+            city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
+            #st.write(
+            #    f"{city} "
+            #  )
+
 # Draw a chart with monthly estimated costs
 if selected_city and selected_vehicle:
     df = pd.DataFrame()
@@ -296,21 +305,20 @@ if selected_city and selected_vehicle:
         tmp_df = pd.DataFrame(selected_city[0]['monthly_dollars'][(vehicle['make'], vehicle['model'])], columns=['Cost'])  
         tmp_df.reset_index(level=0, inplace=True)
         tmp_df.rename(columns = {'index': 'Month'}, inplace = True)
-        tmp_df['vehicle'] = str(vehicle['make']) + ", " + str(vehicle['model'])
+        tmp_df['Vehicle'] = str(vehicle['make']) + ", " + str(vehicle['model'])
         df = pd.concat([df, tmp_df])
+    df['Cost'] = "${:,.2f}".format(df['Cost'])
     
     # Chart title
-    title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
+    
+    #title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
+    title = f"Estimated Charging Costs per Month for selected vehicle in {selected_city[0]['city_state']}"
     
     chart = alt.Chart(df).mark_line().encode(
-    #x='index:Q',
-    #y='0:Q',
-    #alt.X('index').axis().title('Month'),
-    #alt.Y('0').axis(format='$').title('USD')
     
     x=alt.X('Month:Q', axis=alt.Axis(title='Month')),
     y=alt.Y('Cost:Q', axis=alt.Axis(title='Monthly Cost, USD')),
-    color = 'vehicle:N',
+    color = 'Vehicle:N',
     ).properties(
     width='container'
 ).properties(
