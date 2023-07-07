@@ -291,9 +291,13 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 # Draw a chart with monthly estimated costs
 if selected_city and selected_vehicle:
-    df = pd.DataFrame(selected_city[0]['monthly_dollars'], columns=['Cost'])  
-    df.reset_index(level=0, inplace=True)
-    df.rename(columns = {'index': 'Month'}, inplace = True)
+    df = pd.DataFrame()
+    for vehicle in selected_vehicle:
+        tmp_df = pd.DataFrame(selected_city[0]['monthly_dollars'][(vehicle['make'], vehicle['model'])], columns=['Cost'])  
+        tmp_df.reset_index(level=0, inplace=True)
+        tmp_df.rename(columns = {'index': 'Month'}, inplace = True)
+        tmp_df['vehicle'] = vehicle['make'] + ", " vehicle['model']
+        df = pd.concat([df, tmp_df])
     
     # Chart title
     title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
@@ -305,7 +309,8 @@ if selected_city and selected_vehicle:
     #alt.Y('0').axis(format='$').title('USD')
     
     x=alt.X('Month:Q', axis=alt.Axis(title='Month')),
-    y=alt.Y('Cost:Q', axis=alt.Axis(title='Monthly Cost, USD'))
+    y=alt.Y('Cost:Q', axis=alt.Axis(title='Monthly Cost, USD')),
+    color = 'vehicle:N',
     ).properties(
     width='container'
 ).properties(
@@ -319,5 +324,6 @@ if selected_city and selected_vehicle:
     chart = chart.configure_axis(
     labelExpr='format(datum.value, ".0f")'
 )
+    
     st.altair_chart(chart, use_container_width=True)
     #st.write(chart)
