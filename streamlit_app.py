@@ -35,7 +35,7 @@ with tab1:
     st.markdown("""
     Electric vehicles have gained popularity in recent years due to their eco-friendliness, low emissions, and reduced reliance on fossil fuels. However, one of the most important factors that determine the feasibility and affordability of electric vehicles is costs associated with them. This app estimates energy costs of electric vehicles using factors such as **vehicle make/model, battery capacities, travel distances and local electricity prices.** It may help the user to:
     """)
-     st.markdown(
+    st.markdown(
     """- Decide what make/model to purchase
     - Compare costs
     - Plan trips efficiently, knowing battery limitations
