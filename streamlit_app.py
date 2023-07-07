@@ -197,6 +197,26 @@ def calculate_KWH_costs(forecasts, battery, driving_range, selected_miles):
 for city in city_data:
     city['forecasts'] = predict_KWH(city['city'], selected_years*12)
 
+if selected_vehicle:
+    for city in city_data:
+        city['forecasts'] = {}
+        city['monthly_dollars'] = {}
+        city['cost'] = {}
+        for vehicle in selected_vehicle:
+            # battery is the battery capacity in KWH of the vehicle
+            battery = vehicle['battery']
+            # strip the 'km' from vehicle driving range to keep the number only
+            driving_range = float(vehicle['erange_real'][:-3])
+            
+            tmp_dollars = calculate_KWH_costs(city['forecasts'], battery, driving_range, selected_miles)
+            tmp_cost = sum(tmp_dollars)
+            
+            city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
+            city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
+            #st.write(
+            #    f"{city} "
+            #  )
+            
 # Render a map
 # credit to https://www.kaggle.com/code/dabaker/fancy-folium
 def fancy_html(city_state, total_dollars):
@@ -276,27 +296,6 @@ for city in city_data:
 folium_static(map_obj)
 # Add space between the map and the next object
 st.markdown("<br>", unsafe_allow_html=True)
-
-  
-if selected_vehicle:
-    for city in city_data:
-        city['forecasts'] = {}
-        city['monthly_dollars'] = {}
-        city['cost'] = {}
-        for vehicle in selected_vehicle:
-            # battery is the battery capacity in KWH of the vehicle
-            battery = vehicle['battery']
-            # strip the 'km' from vehicle driving range to keep the number only
-            driving_range = float(vehicle['erange_real'][:-3])
-            
-            tmp_dollars = calculate_KWH_costs(city['forecasts'], battery, driving_range, selected_miles)
-            tmp_cost = sum(tmp_dollars)
-            
-            city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
-            city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
-            #st.write(
-            #    f"{city} "
-            #  )
 
 # Draw a chart with monthly estimated costs
 if selected_city and selected_vehicle:
