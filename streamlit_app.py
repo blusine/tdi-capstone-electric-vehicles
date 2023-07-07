@@ -199,7 +199,6 @@ for city in city_data:
 
 if selected_vehicle:
     for city in city_data:
-        city['forecasts'] = {}
         city['monthly_dollars'] = {}
         city['cost'] = {}
         for vehicle in selected_vehicle:
