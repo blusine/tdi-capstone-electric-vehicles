@@ -36,7 +36,8 @@ with tab1:
     Electric vehicles have gained popularity in recent years due to their eco-friendliness, low emissions, and reduced reliance on fossil fuels. However, one of the most important factors that determine the feasibility and affordability of electric vehicles is costs associated with them. This app estimates energy costs of electric vehicles using factors such as **vehicle make/model, battery capacities, travel distances and local electricity prices.** It may help the user to:
     """)
     st.markdown(
-    """- Decide what make/model to purchase
+    """
+    - Decide what make/model to purchase
     - Compare costs
     - Plan trips efficiently, knowing battery limitations
     - Avoid running out of power
@@ -45,12 +46,9 @@ with tab1:
     st.markdown(
     """
     
-    The app first extracts historical electricity prices for a list of cities from bls.gov for the past up to 60 years. Then predicts the future prices per KWH with time series analysis. To complete data requirements for the predictions, it fills up missing historical prices by by averaging the existing prices for other cities in the same geographical region, for the same time period. Finally, the app uses the predicted prices and vehicle battery information to estimate the charging costs in the future. The image below shows how the cities have been mapped to US regions.
+    The app first extracts historical electricity prices for a list of cities from bls.gov for the past up to 60 years. Then predicts the future prices per KWH with time series analysis. To complete data requirements for the predictions, it fills up missing historical prices by by averaging the existing prices for other cities in the same geographical region, for the same time period. Finally, the app uses the predicted prices and vehicle battery information to estimate the charging costs in the future.
     """
     )
-    
-    st.image("us-regions-map.jpg", caption="US Regions' Map", width=300, use_column_width=True, output_format='auto')
-    
     
     # Create two columns to save space vertically
     col1, col2 = st.columns([1, 15])
@@ -68,11 +66,16 @@ with tab1:
     - Select the number of years you intend to use the vehicle for
     - Colors of the map markers: red: for the selected city, blue: for the non-selected city
     - A click on a marker will pop up a display with the total cost for that city and the selected vehicles.
-    - The chart in the bottom will show monthly costs for the selected city and vehicles. 
+    - The chart in the bottom will show monthly costs for the selected city and vehicles.
+    
+    The image below shows how the cities have been mapped to the US regions.
     """
     )
+    
+    st.image("us-regions-map.jpg", caption="US Regions' Map", width=200, use_column_width=True, output_format='auto')
+    
 
-with tab1:
+with tab2:
     #title
     st.title(":blue[  Estimation of Charging Costs of Electric Vehicles]")
 
