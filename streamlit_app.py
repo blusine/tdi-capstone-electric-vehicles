@@ -280,13 +280,17 @@ if selected_city and selected_vehicle:
 
     # Chart title
     title = f"Estimated Charging Costs per Month for Selected Vehicles in {selected_city[0]['city_state']}"
+    selection = alt.selection_point(fields=['Vehicle'], bind='legend')
     
     chart = alt.Chart(df).mark_line().encode(
     
     x=alt.X('Month:Q', axis=alt.Axis(title='Month')),
     y=alt.Y('Cost:Q', axis=alt.Axis(title='Monthly Cost, USD')),
-    color = 'Vehicle:N',
-    ).properties(
+    color = 'Vehicle:N', scale=alt.Scale(scheme='category20b')),
+    opacity=alt.condition(selection, alt.value(1), alt.value(0.2)
+    ).add_selection(
+    selection
+).properties(
     width='container'
 ).properties(
     title={
