@@ -72,7 +72,7 @@ with tab1:
     """
     )
     
-    st.image("us-regions-map.jpg", caption="US Regions' Map", width=200, use_column_width=True, output_format='auto')
+    st.image("us-regions-map.jpg", caption="US Region Map", width=100, use_column_width=True, output_format='auto')
     
 
 with tab2:
