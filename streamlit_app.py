@@ -1,22 +1,14 @@
 import pandas as pd
-#pd.options.display.float_format = '{:.2f}'.format
 import numpy as np
 from streamlit_folium import st_folium, folium_static
 import altair as alt
 import folium
 import branca
-#from geopy.geocoders import Nominatim
 import streamlit as st
-#from PIL import Image
 from datetime import datetime
-#import requests
 import boto3
 import json
-#import jinja2
 import pmdarima
-#import plost
-#import matplotlib.pyplot as plt
-#import plotly.express as px
 
 aws_access_key_id = st.secrets["AWS_ACCESS_KEY_ID"]
 aws_secret_access_key = st.secrets["AWS_SECRET_ACCESS_KEY"]
@@ -41,20 +33,15 @@ with col1:
     icon("electric_car")
 with col2:
     st.markdown('##### :green[Directions]')
-    
-#markdown
-#st.markdown("""
-#    Electric vehicles have gained a lot of popularity in recent years due to their eco-friendliness, low emissions, and reduced reliance on #fossil fuels. However, one of the most important factors that determine the feasibility and affordability of electric vehicles is their #energy costs. This project predicts energy costs of electric vehicles using factors such as vehicle make/model, its battery capacities, #travel distances and local electricity prices.
-#""")
      
 st.markdown(
 """- Select the closest city where you intend to drive the vehicle
-- Select the vehicle you are interested in from the drop down list
+- Select up to five vehicles you are interested in from the drop down list
 - Select the expected annual miles you intend to drive
-- Select the number of years you intend to use the vehicle
+- Select the number of years you intend to use the vehicle for
 - Colors of the map markers: red: for the selected city, blue: for the non-selected city
-- A click on a marker will pop up a display with the total cost for that city and the selected vehicle.
-- The chart in the bottom shows monthly costs for the selected city and vehicle. 
+- A click on a marker will pop up a display with the total cost for that city and the selected vehicles.
+- The chart in the bottom will show monthly costs for the selected city and vehicles. 
 """
 )
 
@@ -100,11 +87,6 @@ vehicle_data = []
 for vehicle in vehicle_data1:
     vehicle = json.loads(vehicle)
     vehicle_data.append(vehicle)
-    
-    
-#st.write(
-#    f"{vehicle_data} "
-#    )
 
 city_choices = list(city["city_state"] for city in city_data)
 city_choices.insert(0, "Select a City")
@@ -114,19 +96,18 @@ vehicle_choices.insert(0, "Select a Vehicle")
 
 with st.sidebar.form(key="my_form"):
     selected_city = st.selectbox("Choose a City", city_choices)
-    #selected_vehicle = st.selectbox("Choose a Vehicle", vehicle_choices)
-    selected_vehicle = st.multiselect("Choose a Vehicle", vehicle_choices, max_selections = 4, default  = "Select a Vehicle")
+    selected_vehicle = st.multiselect("Choose a Vehicle", vehicle_choices, max_selections = 5, default  = "Select a Vehicle")
     
     selected_miles = st.number_input(
         """Select Miles You Estimate to Drive Annually""",
         value=12000,
         min_value=1000,
-        max_value=50000,
+        max_value=100000,
         step=100,
         format="%i",
     )
     
-    selected_years = st.slider('📝 Input Number of Years You Intend to Use the Vehicle:', 1 , 25) 
+    selected_years = st.slider('📝 Input Number of Years You Intend to Use the Vehicle for:', 1 , 25) 
 
     pressed = st.form_submit_button("Estimate Vehicle Costs")
 
@@ -137,15 +118,9 @@ Electric vehicles have gained a lot of popularity in recent years due to their e
 """
 )
 
-for i in selected_vehicle:
-    st.write(
-        f"{i} "
-        )
-
-#selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle["make"] == selected_option[0]) and (vehicle["model"] == selected_option[1] for selected_option in selected_vehicle)]
-
 selected_vehicle = [vehicle for vehicle in vehicle_data if (vehicle['make'], vehicle['model']) in selected_vehicle]
-
+# If a vehicle is selected, the user will see some details on the vehicle scraped from ev-database.org, along with thumbnail images.
+# The user can click on the little arrows next to the images to view them on a full screen.
 if selected_vehicle:
     with st.expander("Expand to See the Selected Vehicle Information"):
         vdf = pd.DataFrame(selected_vehicle)
@@ -155,11 +130,10 @@ if selected_vehicle:
             st.markdown('###### :green[Image]')
         for index, row in vdf.iterrows():
             with col1:
-                image_url = row['img1_url']
+                image_url = row['img1_url'] # img1_url in the vehicle data is where the url of the image
                 st.image(image_url, caption=f"Image {index+1}")
         with col2:
-            st.write(vdf)
-            #st.write(row['make'], row['model'], row['make'], row['make'], )
+            st.write(vdf) # href column in the dataframe refers to a detailed webpage on the specific vehicle
 
     
 selected_city = [city for city in city_data if city["city_state"] == selected_city]
@@ -185,7 +159,7 @@ def calculate_KWH_costs(forecasts, battery, driving_range, selected_miles):
     selected_miles = selected_miles / 12
     # Step 3: calculate # of monthly charges
     monthly_charges = selected_miles / driving_range
-    # Step 4: consider charging efficiency and real energy used: more energy is used to charge the battery and drive in various conditions
+    # Step 4: consider charging efficiency and real energy used: more energy is used to charge the battery and to drive in various weather conditions
     battery = battery * 1.3
     # Step 5: monthly KWH to keep the car running
     monthly_KWH = monthly_charges * battery
@@ -212,9 +186,6 @@ if selected_vehicle:
             
             city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
             city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
-            #st.write(
-            #    f"{city} "
-            #  )
             
 # Render a map
 # credit to https://www.kaggle.com/code/dabaker/fancy-folium
@@ -233,8 +204,8 @@ def fancy_html(city_state, total_dollars):
             
             tbrow = """
                <tr>
-                <td style="background-color: """+ left_col_colour +""";"><span style="color: #ffffff;">{}""".format(make_model) + """</span></td>
-                <td style="width: 200px;background-color: """+ right_col_colour +""";">{}</td>""".format(value) + """
+                <td style="background-color: """+ left_col_colour +""";"><span style="color: #212121;">{}""".format(make_model) + """</span></td>
+                <td style="width: 150px;background-color: """+ right_col_colour +""";">{}</td>""".format(value) + """
               </tr>
             """
             table_rows_with_cost = table_rows_with_cost + tbrow
@@ -256,6 +227,7 @@ def fancy_html(city_state, total_dollars):
     """
     return html
 
+# If a city is selected, the map will be centered at that city, otherwise, it will be centered at the mean coordinates of all cities
 if not selected_city:
     # Calculate mean latitudes and longitudes
     latitudes = [item['Latitude'] for item in city_data]
@@ -291,12 +263,12 @@ for city in city_data:
           icon=folium.Icon(color=color, icon='info-sign'),
           tooltip=city['city_state']).add_to(map_obj)
 
-#st_folium(map_obj, width=725) #too interactive for this application
+#st_folium(map_obj, width=725) #too interactive for this application or I could not figure it out, maybe next time
 folium_static(map_obj)
-# Add space between the map and the next object
+# Add space between the map and the next object for visual representation
 st.markdown("<br>", unsafe_allow_html=True)
 
-# Draw a chart with monthly estimated costs
+# Draw a chart with monthly estimated costs if both a city and a vehicle are selected.
 if selected_city and selected_vehicle:
     df = pd.DataFrame()
     for vehicle in selected_vehicle:
@@ -305,12 +277,9 @@ if selected_city and selected_vehicle:
         tmp_df.rename(columns = {'index': 'Month'}, inplace = True)
         tmp_df['Vehicle'] = str(vehicle['make']) + ", " + str(vehicle['model'])
         df = pd.concat([df, tmp_df])
-    #df['Cost'] = df['Cost'].apply(lambda x: "${:,.2f}".format(x))
-    
+
     # Chart title
-    
-    #title = f"Estimated Charging Costs per Month for {selected_vehicle[0]['make']}, {selected_vehicle[0]['model']} in {selected_city[0]['city_state']}"
-    title = f"Estimated Charging Costs per Month for selected vehicle in {selected_city[0]['city_state']}"
+    title = f"Estimated Charging Costs per Month for Selected Vehicles in {selected_city[0]['city_state']}"
     
     chart = alt.Chart(df).mark_line().encode(
     
@@ -332,4 +301,4 @@ if selected_city and selected_vehicle:
 )
     
     st.altair_chart(chart, use_container_width=True)
-    #st.write(chart)
+    
