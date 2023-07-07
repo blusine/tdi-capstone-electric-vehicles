@@ -46,7 +46,7 @@ with tab1:
     st.markdown(
     """
     
-    The app first extracts historical electricity prices for a list of cities from bls.gov for the past up to 60 years. Then predicts the future prices per KWH with time series analysis. To complete data requirements for the predictions, it fills up missing historical prices by by averaging the existing prices for other cities in the same geographical region, for the same time period. Finally, the app uses the predicted prices and vehicle battery information to estimate the charging costs in the future.
+    The app first extracts historical electricity prices for a list of cities from bls.gov for the past up to 60 years. Then it predicts the future prices per KWH with time series analysis. To complete data requirements for the predictions, the app fills up missing historical prices by averaging the existing prices for other cities in the same geographical region, for the same time period. Finally, the app uses the predicted prices and vehicle battery information to estimate the charging costs in the future.
     """
     )
     
@@ -55,7 +55,7 @@ with tab1:
     with col1:
         icon("electric_car")
     with col2:
-        st.markdown('#### :green[Directions]')
+        st.markdown('#### :green[Directions on how to run the app:]')
 
     st.markdown(
     """
@@ -64,9 +64,11 @@ with tab1:
     - Select up to five vehicles you are interested in from the drop down list
     - Select the expected annual miles you intend to drive
     - Select the number of years you intend to use the vehicle for
-    - Colors of the map markers: red: for the selected city, blue: for the non-selected city
-    - A click on a marker will pop up a display with the total cost for that city and the selected vehicles.
+    - Colors of the map markers are: red for the selected city, and blue for the non-selected city
+    - A click on a marker will pop up a display with the total cost for that city, for each of the selected vehicles, and total the miles and number of years in the future.
+    - If no vehicle is selected, the popup on the markers will only show the city name.
     - The chart in the bottom will show monthly costs for the selected city and vehicles.
+    - If no vehicle and no city is selected, the chart will be hidden.
     
     The image below shows how the cities have been mapped to the US regions.
     """
