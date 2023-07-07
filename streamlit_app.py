@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 from streamlit_folium import st_folium, folium_static
 import altair as alt
+import vega
+import vega_datasets
 import folium
 import branca
 import streamlit as st
