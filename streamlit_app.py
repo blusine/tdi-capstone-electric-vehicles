@@ -296,7 +296,7 @@ if selected_city and selected_vehicle:
         tmp_df = pd.DataFrame(selected_city[0]['monthly_dollars'][(vehicle['make'], vehicle['model'])], columns=['Cost'])  
         tmp_df.reset_index(level=0, inplace=True)
         tmp_df.rename(columns = {'index': 'Month'}, inplace = True)
-        tmp_df['vehicle'] = f"{}, {}".format(vehicle['make'], vehicle['model'])
+        tmp_df['vehicle'] = str(vehicle['make']) + ", " + str(vehicle['model'])
         df = pd.concat([df, tmp_df])
     
     # Chart title
