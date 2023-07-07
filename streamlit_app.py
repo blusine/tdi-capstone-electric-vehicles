@@ -305,7 +305,7 @@ if selected_city and selected_vehicle:
         tmp_df.rename(columns = {'index': 'Month'}, inplace = True)
         tmp_df['Vehicle'] = str(vehicle['make']) + ", " + str(vehicle['model'])
         df = pd.concat([df, tmp_df])
-    df['Cost'] = "${:,.2f}".format(df['Cost'])
+    df['Cost'] = df['Cost'],apply(lambda x: "${:,.2f}".format(x))
     
     # Chart title
     
