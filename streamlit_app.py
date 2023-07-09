@@ -235,8 +235,9 @@ with tab2:
             
                 city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
                 city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
+                data_dict = {str(key): value for key, value in city_data.items()}
         #Save total costs to AWS S3
-        data_dict = {str(key): value for key, value in city_data.items()}
+        
         current_timestamp = datetime.now()
         folder_name = "vehicle_costs/"
         file_name = f"vehicle_costs_{selected_years}years_{selected_miles}miles_{current_timestamp}.json"
