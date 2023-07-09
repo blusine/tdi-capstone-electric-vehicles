@@ -237,33 +237,30 @@ with tab2:
                 city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
                 city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
                 
-                city_dict0 = city.copy()
+            #Prepare city cost data for saving to AWS S3   
+            city_dict0 = city.copy()
+            city_dict1 = {str(key): value for key, value in city_dict0['cost'].items()}
+            del city_dict0['cost']
+            city_dict0['cost'] = city_dict1
                 
-                city_dict1 = {str(key): value for key, value in city_dict0['cost'].items()}
-                del city_dict0['cost']
-                city_dict0['cost'] = city_dict1
+            temp_dict = {}
+            for key, value in city_dict0['monthly_dollars'].items():            
+                value = value.tolist()
+                temp_dict[key] = value
                 
-                temp_dict = {}
-                for key, value in city_dict0['monthly_dollars'].items():            
-                    value = value.tolist()
-                    temp_dict[key] = value
-                
-                del city_dict0['monthly_dollars']
-                city_dict0['monthly_dollars'] = temp_dict
-                st.write(
+            del city_dict0['monthly_dollars']
+            city_dict0['monthly_dollars'] = temp_dict
+            st.write(
                 f"{city_dict0} "
                 )                    
-                city_dict2 = {str(key): value for key, value in city_dict0['monthly_dollars'].items()}
-                del city_dict0['monthly_dollars']
-                city_dict0['monthly_dollars'] = city_dict2
-                city_dict0['forecasts'] = city_dict0['forecasts'].tolist()
-
-              
-
-                city_dict2 = {str(key): value for key, value in city_dict0.items()}
-                city_list_for_s3.append(city_dict0)
-        #Save total costs to AWS S3
-        
+            city_dict2 = {str(key): value for key, value in city_dict0['monthly_dollars'].items()}
+            del city_dict0['monthly_dollars']
+            city_dict0['monthly_dollars'] = city_dict2
+            city_dict0['forecasts'] = city_dict0['forecasts'].tolist()
+            city_dict2 = {str(key): value for key, value in city_dict0.items()}
+            city_list_for_s3.append(city_dict0)
+            
+        #Save costs to AWS S3
         current_timestamp = datetime.now()
         folder_name = "vehicle_costs/"
         file_name = f"vehicle_costs_{selected_years}years_{selected_miles}miles_{current_timestamp}.json"
