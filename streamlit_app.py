@@ -237,8 +237,11 @@ with tab2:
                 city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
                 city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
                 city_dict0 = city
-                city_dict1 = {str(key): value for key, value in city_dict0['cost'].items()}
-                city_dict2 = {str(key): value for key, value in city_dict1.items()}
+                st.write(
+                f"{city_dict0} "
+                )
+                #city_dict1 = {str(key): value for key, value in city_dict0['cost'].items()}
+                city_dict2 = {str(key): value for key, value in city_dict0.items()}
                 city_list_for_s3.append(city_dict2)
         #Save total costs to AWS S3
         
