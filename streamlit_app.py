@@ -238,7 +238,7 @@ with tab2:
         #Save total costs to AWS S3
         current_timestamp = datetime.now()
         folder_name = "vehicle_costs/"
-        file_name = f"vehicle_costs_{selected_years}years_{selected_miles}miles_{current_timestamp}"
+        file_name = f"vehicle_costs_{selected_years}years_{selected_miles}miles_{current_timestamp}.json"
         file_path_name = folder_name + file_name
         unload_data(city_data, file_path_name)
             
