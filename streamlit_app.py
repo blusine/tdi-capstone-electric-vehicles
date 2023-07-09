@@ -237,7 +237,7 @@ with tab2:
                 city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
                 city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
                 
-                city_dict0 = city.copy
+                city_dict0 = city.copy()
                 
                 st.write(
                 f"{city_dict0['cost']} "
