@@ -239,9 +239,7 @@ with tab2:
                 
                 city_dict0 = city.copy()
                 
-                st.write(
-                f"{city_dict0} "
-                )
+
                 
                 city_dict1 = {str(key): value for key, value in city_dict0['cost'].items()}
                 del city_dict0['cost']
@@ -250,6 +248,9 @@ with tab2:
                 del city_dict0['monthly_dollars']
                 city_dict0['monthly_dollars'] = city_dict2
                 city_dict0['forecasts'] = city_dict0['forecasts'].tolist()
+                st.write(
+                f"{city_dict0} "
+                )
                 city_dict0['monthly_dollars'] = city_dict0['monthly_dollars'].tolist()
               
 
