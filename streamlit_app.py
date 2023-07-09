@@ -249,10 +249,7 @@ with tab2:
                 temp_dict[key] = value
                 
             del city_dict0['monthly_dollars']
-            city_dict0['monthly_dollars'] = temp_dict
-            st.write(
-                f"{city_dict0} "
-                )                    
+            city_dict0['monthly_dollars'] = temp_dict                   
             city_dict2 = {str(key): value for key, value in city_dict0['monthly_dollars'].items()}
             del city_dict0['monthly_dollars']
             city_dict0['monthly_dollars'] = city_dict2
