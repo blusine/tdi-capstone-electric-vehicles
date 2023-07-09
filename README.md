@@ -8,4 +8,8 @@ Compare costs,
 Plan trips efficiently, knowing battery limitations, 
 Avoid running out of power
 
-The app first extracts historical electricity prices for a list of cities from bls.gov for the past up to 60 years. Then it predicts the future prices per KWH with time series analysis. To complete data requirements for the predictions, the app fills up missing historical prices by averaging the existing prices for other cities in the same geographical region, for the same time period. Finally, the app uses the predicted prices and vehicle battery information to estimate the charging costs in the future.
+The app uses historical electricity prices for a list of cities extracted from bls.gov. Then it predicts the future prices per KWH with time series analysis.  Finally, the app uses the predicted prices and vehicle battery information to estimate the charging costs in the future. Full data pipeline is provided below.
+
+![image](https://github.com/blusine/tdi-capstone-electric-vehicles/assets/20669462/4f1ec9f5-d605-4572-a35b-378cac4dccf6)
+
+
