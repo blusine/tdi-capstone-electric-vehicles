@@ -120,6 +120,8 @@ with tab2:
             bytes_data = csv_data.encode()
         elif filename[-4:] == '.pkl':
             bytes_data = pickle.dumps(data)
+        elif filename[-4:] == 'json':
+            bytes_data = json.dumps(data)
         response = s3.put_object(Body=bytes_data, Bucket=bucket_name, Key=filename)
         
     # read the data somehow the json data did not get parsed correctly, so I reading csv and converting to json again
@@ -235,8 +237,8 @@ with tab2:
                 city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
         #Save total costs to AWS S3
         current_timestamp = datetime.now()
-        folder_name = "vehicle_total_costs/"
-        file_name = f"vehicle_total_costs_ {} years_ {} miles_ {} ".format(selected_years, selected_miles, current_timestamp)
+        folder_name = "vehicle_costs/"
+        file_name = f"vehicle_costs_{selected_years}years_{selected_miles}miles_{current_timestamp}"
         file_path_name = folder_name + file_name
         unload_data(city_data, file_path_name)
             
