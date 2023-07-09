@@ -240,7 +240,7 @@ with tab2:
                 city_dict0 = city.copy
                 
                 st.write(
-                f"{city_dict0} "
+                f"{city_dict0['cost']} "
                 )
                 
                 city_dict1 = {str(key): value for key, value in city_dict0['cost'].items()}
