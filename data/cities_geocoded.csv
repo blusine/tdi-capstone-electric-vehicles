@@ -1,0 +1,23 @@
+city,state,region,start,end,seriesId,MetroArea,city_state,geoloc,Latitude,Longitude
+New York City,NY,NE,1978,2023,APUS12A72610,"New York-Newark-Jersey City, NY-NJ-PA","New York City, NY","(40.7127281, -74.0060152)",40.7127281,-74.0060152
+Los Angeles,CA,WE,1978,2017,APUA42172610,"Los Angeles-Riverside-Orange County, CA","Los Angeles, CA","(34.0536909, -118.242766)",34.0536909,-118.242766
+Chicago,IL,MW,1978,2023,APUS23A72610,"Chicago-Naperville-Elgin, IL-IN-WI","Chicago, IL","(41.8755616, -87.6244212)",41.8755616,-87.6244212
+Houston,TX,SW,1978,2023,APUS37B72610,"Houston-The Woodlands-Sugar Land, TX","Houston, TX","(29.7589382, -95.3676974)",29.7589382,-95.3676974
+Phoenix,AZ,SW,2018,2023,APUS48A72610,"Phoenix-Mesa-Scottsdale, AZ","Phoenix, AZ","(33.4484367, -112.074141)",33.4484367,-112.074141
+Philadelphia,PA,NE,1978,2023,APUS12B72610,"	Philadelphia-Camden-Wilmington, PA-NJ-DE-MD","Philadelphia, PA","(39.9527237, -75.1635262)",39.9527237,-75.1635262
+San Diego,CA,WE,1978,2023,APUS49E72610,"San Diego-Carlsbad, CA","San Diego, CA","(32.7174202, -117.1627728)",32.7174202,-117.1627728
+Dallas,TX,SW,1978,2023,APUS37A72610,"Dallas-Fort Worth-Arlington, TX","Dallas, TX","(32.7762719, -96.7968559)",32.7762719,-96.7968559
+Seattle,WA,WE,1978,2023,APUS49D72610,Seattle-Tacoma-Bellevue WA,"Seattle, WA","(47.6038321, -122.330062)",47.6038321,-122.330062
+San Francisco,CA,WE,1978,2023,APUS49B72610,"San Francisco-Oakland-Hayward, CA","San Francisco, CA","(37.7790262, -122.419906)",37.7790262,-122.419906
+Denver,CO,WE,1978,2023,APUS48B72610,"Denver-Aurora-Lakewood, CO","Denver, CO","(39.7392364, -104.984862)",39.7392364,-104.984862
+Washington,DC,SE,1978,1997,APUA31572610,"Washington, DC-MD-VA","Washington, DC","(38.8950368, -77.0365427)",38.8950368,-77.0365427
+Detroit,MI,MW,1978,2023,APUS23B72610,"Detroit-Warren-Dearborn, MI","Detroit, MI","(42.3315509, -83.0466403)",42.3315509,-83.0466403
+Portland,OR,WE,1978,1986,APUA42572610,"Portland-Salem, OR-WA","Portland, OR","(45.5202471, -122.674194)",45.5202471,-122.674194
+Boston,MA,NE,1978,2023,APUS11A72610,"Boston-Cambridge-Newton, MA-NH","Boston, MA","(42.3554334, -71.060511)",42.3554334,-71.060511
+Baltimore,MD,SE,1998,2017,APUA31172610,"Washington-Baltimore, DC-MD-VA-WV","Baltimore, MD","(39.2908816, -76.610759)",39.2908816,-76.610759
+Milwaukee,WI,MW,1978,1986,APUA21272610,"Milwaukee-Racine, WI","Milwaukee, WI","(43.0349931, -87.922497)",43.0349931,-87.922497
+Kansas City,MO,MW,1978,1986,APUA21472610,"Kansas City, MO-KS","Kansas City, MO","(39.100105, -94.5781416)",39.100105,-94.5781416
+Atlanta,GA,SE,1978,2023,APUS35C72610,"Atlanta-Sandy Springs-Roswell, GA","Atlanta, GA","(33.7489924, -84.3902644)",33.7489924,-84.3902644
+Long Beach,CA,WE,1978,2023,APUS49A72610,"Los Angeles-Long Beach-Anaheim, CA","Long Beach, CA","(33.7690164, -118.191604)",33.7690164,-118.191604
+Miami,FL,SE,1978,2023,APUS35B72610,"Miami-Fort Lauderdale-West Palm Beach, FL","Miami, FL","(25.7741728, -80.19362)",25.7741728,-80.19362
+Minneapolis,MN,MW,1978,2023,APUS24A72610,"Minneapolis-St.Paul-Bloomington, MN-WI","Minneapolis, MN","(44.9772995, -93.2654692)",44.9772995,-93.2654692

@@ -104,7 +104,24 @@ with tab2:
             pkl_data = response['Body'].read()
             data = pickle.loads(pkl_data)      
         return data
+    
+    def unload_data(data, filename):
 
+        session = boto3.session.Session( 
+        aws_access_key_id= aws_access_key_id, 
+        aws_secret_access_key= aws_secret_access_key,  
+        region_name='us-east-1'
+        )
+        
+        s3 = session.client('s3')
+        bucket_name = "tdi-capstone-lb"
+        if filename[-4:] == '.csv':
+            csv_data = data.to_csv(index=False)
+            bytes_data = csv_data.encode()
+        elif filename[-4:] == '.pkl':
+            bytes_data = pickle.dumps(data)
+        response = s3.put_object(Body=bytes_data, Bucket=bucket_name, Key=filename)
+        
     # read the data somehow the json data did not get parsed correctly, so I reading csv and converting to json again
     city_data1 = load_data('data/cities_geocoded.csv')
     city_data1 = city_data1.apply(lambda x: json.dumps(x.to_dict(), ensure_ascii=False), axis=1)
@@ -216,6 +233,12 @@ with tab2:
             
                 city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
                 city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
+        #Save total costs to AWS S3
+        current_timestamp = datetime.now()
+        folder_name = "vehicle_total_costs/"
+        file_name = f"vehicle_total_costs_ {} years_ {} miles_ {} ".format(selected_years, selected_miles, current_timestamp)
+        file_path_name = folder_name + file_name
+        unload_data(city_data, file_path_name)
             
     # Render a map
     # credit to https://www.kaggle.com/code/dabaker/fancy-folium
