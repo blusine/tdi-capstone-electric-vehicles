@@ -234,7 +234,7 @@ with tab2:
                 tmp_dollars = calculate_KWH_costs(city['forecasts'], battery, driving_range, selected_miles)
                 tmp_cost = sum(tmp_dollars)
             
-                city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars.tolist()
+                city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
                 city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
                 city_dict0 = city
                 city_dict1 = {str(key): value for key, value in city_dict0['cost'].items()}
