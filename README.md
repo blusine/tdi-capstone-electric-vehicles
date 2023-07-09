@@ -12,4 +12,3 @@ The app uses historical electricity prices for a list of cities extracted from b
 
 ![image](https://github.com/blusine/tdi-capstone-electric-vehicles/assets/20669462/1dae8f67-bd49-4030-9aef-bc007a672e1f)
 
-![image](https://github.com/blusine/tdi-capstone-electric-vehicles/assets/20669462/a3178ab4-d136-4edd-bb60-fade1d36ff93)
