@@ -218,7 +218,7 @@ with tab2:
 
     # Call the KWH functions for each selected vehicle and city
     for city in city_data:
-        city['forecasts'] = predict_KWH(city['city'], selected_years*12).tolist()
+        city['forecasts'] = predict_KWH(city['city'], selected_years*12)
 
     if selected_vehicle:
         city_list_for_s3 = []
