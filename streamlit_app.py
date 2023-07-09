@@ -218,7 +218,7 @@ with tab2:
 
     # Call the KWH functions for each selected vehicle and city
     for city in city_data:
-        city['forecasts'] = predict_KWH(city['city'], selected_years*12)
+        city['forecasts'] = predict_KWH(city['city'], selected_years*12).tolist()
 
     if selected_vehicle:
         city_list_for_s3 = []
@@ -234,18 +234,18 @@ with tab2:
                 tmp_dollars = calculate_KWH_costs(city['forecasts'], battery, driving_range, selected_miles)
                 tmp_cost = sum(tmp_dollars)
             
-                city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars
+                city['monthly_dollars'][(vehicle['make'], vehicle['model'])] = tmp_dollars.tolist()
                 city['cost'][(vehicle['make'], vehicle['model'])] = tmp_cost
                 city_dict0 = city
-                st.write(
-                f"{city_dict0} "
-                )
                 city_dict1 = {str(key): value for key, value in city_dict0['cost'].items()}
                 del city_dict0['cost']
                 city_dict0['cost'] = city_dict1
                 city_dict2 = {str(key): value for key, value in city_dict0['monthly_dollars'].items()}
                 del city_dict0['monthly_dollars']
-                city_dict0['monthly_dollars'] = city_dict2              
+                city_dict0['monthly_dollars'] = city_dict2
+                st.write(
+                f"{city_dict0} "
+                )
                 #city_dict2 = {str(key): value for key, value in city_dict0.items()}
                 city_list_for_s3.append(city_dict0)
         #Save total costs to AWS S3
