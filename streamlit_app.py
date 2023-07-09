@@ -243,7 +243,7 @@ with tab2:
                 city_dict1 = {str(key): value for key, value in city_dict0['cost'].items()}
                 del city_dict0['cost']
                 city_dict0['cost'] = city_dict1
-                city_dict2 = {str(key): value for key, value in city_dict1['monthly_dollars'].items()}
+                city_dict2 = {str(key): value for key, value in city_dict0['monthly_dollars'].items()}
                 del city_dict0['monthly_dollars']
                 city_dict0['monthly_dollars'] = city_dict2              
                 #city_dict2 = {str(key): value for key, value in city_dict0.items()}
